@@ -27,6 +27,12 @@ public class Tile : MonoBehaviour {
 		List<Color> colors = new List<Color>();
 		Color r = new Color(Random.value,Random.value,Random.value,1f);
 
+		if (frontOrigin.z % 2 == 1) {
+			r = Color.blue;
+		} else {
+			r = Color.green;
+		}
+
 		vertices.Add(new Vector3(Mathf.Sin(radian)*radius+frontOrigin.x,Mathf.Cos(radian)*radius+frontOrigin.y,frontOrigin.z));
 		vertices.Add(new Vector3(Mathf.Sin(radian+radian30)*radius+frontOrigin.x, Mathf.Cos(radian+radian30)*radius+frontOrigin.y, frontOrigin.z));
 		vertices.Add(new Vector3(Mathf.Sin(radian+radian30)*radius+backOrigin.x, Mathf.Cos(radian+radian30)*radius+backOrigin.y, backOrigin.z));
