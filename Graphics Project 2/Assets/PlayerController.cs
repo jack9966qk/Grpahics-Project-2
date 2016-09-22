@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerController : MonoBehaviour {
 
+    public Player player { get; private set; }
+	private float velocity = 2f;
+    private float accleration = 0.5f;
+
 	List<Vector3> track;
+    public float trackRadius = 5f;
 
 	// Use this for initialization
 	void Start () {
-	
+        player = new Player(100);
+        player.destroyActions.Add(delegate {
+            GameObject.Destroy(this.gameObject);
+        });
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-		if (Input.GetKey ("w")) {
-			this.transform.localPosition += Vector3.forward * Time.deltaTime;
-		}else if(Input.GetKey ("s")){
-			this.transform.localPosition -= Vector3.forward * Time.deltaTime;
-		}
-
-
-		if (Input.GetKey ("a")) {
-			this.transform.Rotate (Vector3.forward);
-		}
-		if (Input.GetKey ("d")) {
-			this.transform.Rotate (Vector3.back);
-		}
-
-
-
+        applyAccleration();
+        moveForwardByDist(velocity * Time.fixedDeltaTime);
 	}
+
+    void applyAccleration() {
+        this.velocity = Math.Max(0f, this.velocity += this.accleration);
+    }
+
+    // make the player object move forward by t
+    void moveForwardByDist(float t) {
+        throw new System.NotImplementedException();
+    }
 }

@@ -1,0 +1,1 @@
+﻿using UnityEngine;using System.Collections;// DO NOT USE AS CONCRETE CLASSpublic class DestroyableController : MonoBehaviour {    void registerSelfToDestroyable(Destroyable o) {        o.destroyActions.Add(delegate {            GameObject.Destroy(this.gameObject);        });    }}
