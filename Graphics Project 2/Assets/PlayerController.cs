@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
+	public float velocity;
+	public float rotateSpeed;
+
 	List<Vector3> track;
 
 	// Use this for initialization
@@ -15,17 +18,17 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 	
 		if (Input.GetKey ("w")) {
-			this.transform.localPosition += Vector3.forward * Time.deltaTime;
+			this.transform.localPosition += Vector3.forward * Time.deltaTime * velocity;
 		}else if(Input.GetKey ("s")){
-			this.transform.localPosition -= Vector3.forward * Time.deltaTime;
+			this.transform.localPosition -= Vector3.forward * Time.deltaTime * velocity;
 		}
 
 
 		if (Input.GetKey ("a")) {
-			this.transform.Rotate (Vector3.forward);
+			this.transform.Rotate (Vector3.forward*rotateSpeed*Time.deltaTime);
 		}
 		if (Input.GetKey ("d")) {
-			this.transform.Rotate (Vector3.back);
+			this.transform.Rotate (Vector3.back*rotateSpeed*Time.deltaTime);
 		}
 
 
