@@ -12,7 +12,6 @@ public class GameplayController : MonoBehaviour {
 	private GameObject nextBlock;
 	private GameObject nextNextBlock;
 
-	private int z = 0;
 
 //	private GameObject generateNextBlockPoints() {
 //	}
@@ -45,9 +44,15 @@ public class GameplayController : MonoBehaviour {
 
 	}
 
+    void displayResultPage() {
+        throw new System.NotImplementedException();
+    }
 
 	// Use this for initialization
 	void Start () {
+        player.GetComponent<PlayerController>().player.destroyActions.Add(delegate {
+            displayResultPage();
+        });
 		
 		currentBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
 		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
