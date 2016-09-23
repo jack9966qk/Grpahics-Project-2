@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000010918543800}
+  m_RootGameObject: {fileID: 1000010228650636}
   m_IsPrefabParent: 1
---- !u!1 &1000010918543800
+--- !u!1 &1000010228650636
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000011146536572}
-  - 114: {fileID: 114000013464496324}
+  - 4: {fileID: 4000012191205172}
+  - 114: {fileID: 114000013549002332}
   m_Layer: 0
-  m_Name: Tunnel
+  m_Name: CubeObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000011146536572
+--- !u!4 &4000012191205172
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010918543800}
+  m_GameObject: {fileID: 1000010228650636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,17 +40,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000013464496324
+--- !u!114 &114000013549002332
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010918543800}
+  m_GameObject: {fileID: 1000010228650636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c962afbf4ac964f36bda9a42b7c79dc3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ac864a1afafb48f98b6896592f18b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 1000013648615154, guid: 60579970cb3e84f73928e292e3e3382f, type: 2}
-  cubeObstacle: {fileID: 1000010228650636, guid: 155c2981a4a0f4eef89c191944b7b8a7,
-    type: 2}
+  shader: {fileID: 4800000, guid: c7ffea2874c67445fa3cff6e424e0352, type: 3}
+  pointLights: []
+  texture: {fileID: 0}
+  normal: {fileID: 0}

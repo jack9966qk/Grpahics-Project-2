@@ -35,6 +35,7 @@ public class TrackFactory {
 
 		float random = Random.value;
 
+
 		if (random < 0.25f) {
 			//Almost Straight
 			return getStraight();
@@ -53,6 +54,7 @@ public class TrackFactory {
 		}
 
 		return getStraight ();
+
 
 	}
 

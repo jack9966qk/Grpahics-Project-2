@@ -5,6 +5,7 @@ public class TunnelBlock : MonoBehaviour {
 
 
 	public GameObject tile;
+	public GameObject cubeObstacle;
 	private const float RADIUS = 1f;
 
 	// Use this for initialization
@@ -26,6 +27,11 @@ public class TunnelBlock : MonoBehaviour {
 					GameObject t = Instantiate (tile);
 					t.transform.parent = this.gameObject.transform;
 					t.GetComponent<Tile>().CreateTileMesh( (Vector3) last,point,degree,RADIUS);
+
+					if (degree == 30) {
+						GameObject b = Instantiate (cubeObstacle);
+						b.GetComponent<CubeObstacle> ().PutCube ((Vector3)last, degree, RADIUS);
+					}
 				}
 			}
 			last = point;

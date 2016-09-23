@@ -146,8 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc05dc08ca9cd42f29b68d114c6c52c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 5
-  rotateSpeed: 50
+  trackRadius: 5
 --- !u!4 &378232827
 Transform:
   m_ObjectHideFlags: 0
@@ -339,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfe0a61bc7204a5f8644f5b6fc11ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 378232825}
   tunnelBlockPrefab: {fileID: 1000010918543800, guid: 6f39f4ce344b84e11b482cd514536329,
     type: 2}
 --- !u!4 &1964783676

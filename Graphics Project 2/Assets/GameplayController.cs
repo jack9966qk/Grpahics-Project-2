@@ -54,9 +54,9 @@ public class GameplayController : MonoBehaviour {
             displayResultPage();
         });
 		
-		currentBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
-		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
-		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
+		currentBlock = generateNewTunnelBlock(TrackFactory.instance.getStraight());
+		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getStraight());
+		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getStraight());
 //		nextBlock = generateNextBlockPoints ();
 //		nextNextBlock = generateNextBlockPoints ();
 //
