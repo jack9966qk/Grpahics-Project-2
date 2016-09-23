@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour {
 
     public GameplayController gameController;
     public Player player { get; private set; }
-    private float velocity = 0.5f;
+    private float velocity = 2f;
+    private float maxVelocity = 5f;
     private float accleration = 0.005f;
     private float angle = 0f;
+
 
     private bool initialised = false;
     private Vector3 last;
@@ -46,6 +48,10 @@ public class PlayerController : MonoBehaviour {
         initialised = true;
     }
 
+    public void addAccleration(float amount) {
+        this.accleration += amount;
+    }
+
     void stepOne() {
         last = next;
         next = secNext;
@@ -58,11 +64,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     void loadNextTrack() {
-        track = new Queue<Vector3>(gameController.gotoNextBlock());
+         track = new Queue<Vector3>(gameController.gotoNextBlock());
+         track.Dequeue();
+
     }
 
     void applyAccleration() {
-        this.velocity = Math.Max(0f, this.velocity += this.accleration);
+        this.velocity = Math.Min(maxVelocity, Math.Max(0f, this.velocity += this.accleration));
     }
 
     public void translateControlPoints(Vector3 v) {
@@ -85,10 +93,9 @@ public class PlayerController : MonoBehaviour {
             stepOne();
             progress -= 1.0f;
         }
-
-
-        Quaternion lastDirection = Quaternion.Euler(next - last);
-        Quaternion nextDirection = Quaternion.Euler(secNext - next);
+        
+        Quaternion lastDirection = Quaternion.LookRotation(next - last, Vector3.up);
+        Quaternion nextDirection = Quaternion.LookRotation(secNext - next, Vector3.up);
 
         this.transform.position = Vector3.Lerp(last, next, progress);
         this.transform.rotation = Quaternion.Lerp(lastDirection, nextDirection, progress);

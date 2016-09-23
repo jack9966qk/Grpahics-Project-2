@@ -6,7 +6,7 @@ using System.Linq;
 
 public class GameplayController : MonoBehaviour {
 
-    private const int BOUND_SIZE = 5000;
+    private const int BOUND_SIZE = 50;
 
     public GameObject player;
     public GameObject tunnelBlockPrefab;
@@ -38,8 +38,6 @@ public class GameplayController : MonoBehaviour {
         List<Vector3> newTrack = TrackFactory.instance.getBlock();
         nextNextBlock = generateNewTunnelBlock(newTrack);
 
-        Debug.Log(currentBlock.GetComponent<TunnelBlock>().track);
-
         return currentBlock.GetComponent<TunnelBlock>().track;
 
     }
@@ -52,19 +50,21 @@ public class GameplayController : MonoBehaviour {
             pos.y < -BOUND_SIZE ||
             pos.z > BOUND_SIZE ||
             pos.z < -BOUND_SIZE) {
+            Debug.Log("Will Reset");
             resetPositions();
+            Debug.Log("Did Reset");
         }
     }
 
     void resetPositions() {
         var allGameObjects = GameObject.FindObjectsOfType<GameObject>();
         Vector3 playerPos = player.transform.position;
-        player.transform.position = Vector3.zero;
-        Vector3 playerMovement = Vector3.zero - playerPos;
+        Vector3 displacement = Vector3.zero - playerPos;
         foreach (GameObject o in allGameObjects) {
-            o.transform.Translate(playerMovement);
+            o.transform.Translate(displacement);
         }
-        player.GetComponent<PlayerController>().translateControlPoints(playerMovement);
+        player.transform.position = Vector3.zero;
+        player.GetComponent<PlayerController>().translateControlPoints(displacement);
     }
 
     void displayResultPage() {
@@ -90,7 +90,7 @@ public class GameplayController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        //resetIfOutOfBound();
     }
 
 
