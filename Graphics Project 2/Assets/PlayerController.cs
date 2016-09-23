@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        track = new Queue<Vector3>(gameController.getCurrentTrack());
         applyAccleration();
         moveForwardByDist(velocity * Time.fixedDeltaTime);
     }
@@ -80,6 +79,7 @@ public class PlayerController : MonoBehaviour {
 
     // make the player object move forward by t
     void moveForwardByDist(float t) {
+
         float progress = t + unitProgress;
         while (progress > 1.0f) {
             stepOne();

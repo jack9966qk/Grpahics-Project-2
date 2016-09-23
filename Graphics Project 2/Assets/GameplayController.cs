@@ -44,10 +44,6 @@ public class GameplayController : MonoBehaviour {
 
     }
 
-    public List<Vector3> getCurrentTrack() {
-        return this.currentBlock.GetComponent<TunnelBlock>().track;
-    }
-
     void resetIfOutOfBound() {
         Vector3 pos = player.transform.position;
         if (pos.x > BOUND_SIZE ||
