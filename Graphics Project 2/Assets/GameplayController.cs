@@ -8,6 +8,9 @@ public class GameplayController : MonoBehaviour {
 
     private const int BOUND_SIZE = 50;
 
+    public GameObject resultPage;
+    public GameObject overlay;
+
     public GameObject player;
     public GameObject tunnelBlockPrefab;
 
@@ -16,6 +19,11 @@ public class GameplayController : MonoBehaviour {
     private GameObject nextBlock;
     private GameObject nextNextBlock;
 
+    private int score {
+        get {
+            return Mathf.RoundToInt(player.GetComponent<PlayerController>().dist);
+        }
+    }
 
     GameObject generateNewTunnelBlock(List<Vector3> track) {
         var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
@@ -68,12 +76,17 @@ public class GameplayController : MonoBehaviour {
     }
 
     void displayResultPage() {
-        throw new System.NotImplementedException();
+        resultPage.GetComponent<ResultPageController>().loadScore(this.score);
+        resultPage.SetActive(true);
     }
 
     // Use this for initialization
     void Start() {
+        resultPage.SetActive(false);
+        overlay.SetActive(true);
+
         player.GetComponent<PlayerController>().player.destroyActions.Add(delegate {
+            overlay.SetActive(false);
             displayResultPage();
         });
 
@@ -91,6 +104,12 @@ public class GameplayController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //resetIfOutOfBound();
+
+        overlay.GetComponent<OverlayController>().loadScore(score);
+
+        if (Input.GetKeyDown("s")) {
+            player.GetComponent<PlayerController>().player.deductHp(200);
+        }
     }
 
 

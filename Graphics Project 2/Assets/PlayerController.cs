@@ -18,15 +18,16 @@ public class PlayerController : MonoBehaviour {
     private Vector3 next;
     private Vector3 secNext;
     private Queue<Vector3> track;
-    private float dist = 0f;
+    public float dist { get; private set; }
     private float unitProgress = 0f;
     public float trackRadius = 0.7f;
 
     // Use this for initialization
     void Start() {
+        dist = 0f;
         player = new Player(100);
         player.destroyActions.Add(delegate {
-            GameObject.Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         });
     }
 
