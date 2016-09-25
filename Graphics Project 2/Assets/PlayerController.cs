@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public Player player { get; private set; }
     private float velocity = 2f;
     private float maxVelocity = 5f;
+    private float velocityBoost = 0f;
     private float accleration = 0.005f;
     private float angle = 0f;
 
@@ -38,7 +39,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         applyAccleration();
-        moveForwardByDist(velocity * Time.fixedDeltaTime);
+        moveForwardByDist((velocity + velocityBoost) * Time.fixedDeltaTime);
+    }
+
+    public void makeInvincibleForSecs(float secs) {
+        throw new NotImplementedException();
+    }
+
+    public void temporarySpeedBoost(float secs, float amount) {
+        throw new NotImplementedException();
     }
 
     public void initialise(List<Vector3> firstTrack) {
