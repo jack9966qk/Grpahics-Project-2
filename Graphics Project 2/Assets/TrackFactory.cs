@@ -37,12 +37,8 @@ public class TrackFactory {
 
 		float random = Random.value;
 
-<<<<<<< Updated upstream
-		if (random < 0.25f) {
-=======
 
 		if (random < 1.0f/3) {
->>>>>>> Stashed changes
 			//Almost Straight
 			return getStraight();
 		} else if (random < 2.0f/3) {
@@ -52,9 +48,7 @@ public class TrackFactory {
 			//random semi cos arc
 			return getSemiCos ();
 		} 
-
-		return getStraight ();
-
+			
 	}
 
 	private List<Vector3> getStraight(){
@@ -74,7 +68,6 @@ public class TrackFactory {
 		List<Vector3> points = new List<Vector3> ();
 
 		float XorY = Random.value;
-		float degree = Random.value;
 		Vector3 currPoint = last;
 		points.Add (last);
 
@@ -104,7 +97,6 @@ public class TrackFactory {
 	private List<Vector3> getSemiCos(){
 		List<Vector3> points = new List<Vector3> ();
 		float XorY = Random.value;
-		float degree = Random.value;
 		Vector3 currPoint = last;
 		points.Add (last);
 

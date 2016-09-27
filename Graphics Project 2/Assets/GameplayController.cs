@@ -6,7 +6,6 @@ using System.Linq;
 
 public class GameplayController : MonoBehaviour {
 
-    private const int BOUND_SIZE = 50;
 
     public GameObject resultPage;
     public GameObject overlay;
@@ -31,11 +30,28 @@ public class GameplayController : MonoBehaviour {
         return newBlock;
     }
 
+	GameObject instantGenerateNewTunnelBlock(List<Vector3> track) {
+		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
+		newBlock.GetComponent<TunnelBlock>().InstantGenerateTunnel(track);
+		return newBlock;
+	}
+
+	public void generateMore(){
+		nextBlock.GetComponent<TunnelBlock> ().GenerateOneCircle ();
+	}
+
+	public void deleteMore(){
+		lastBlock.GetComponent<TunnelBlock> ().DeleteOneCirle ();
+	}
+
     public List<Vector3> gotoNextBlock() {
         // destroy lastBlock
         if (lastBlock != null) {
             GameObject.Destroy(lastBlock);
         }
+
+		generateMore ();
+		deleteMore ();
 
         // pass over
         lastBlock = currentBlock;
@@ -48,31 +64,6 @@ public class GameplayController : MonoBehaviour {
 
         return currentBlock.GetComponent<TunnelBlock>().track;
 
-    }
-
-    void resetIfOutOfBound() {
-        Vector3 pos = player.transform.position;
-        if (pos.x > BOUND_SIZE ||
-            pos.x < -BOUND_SIZE ||
-            pos.y > BOUND_SIZE ||
-            pos.y < -BOUND_SIZE ||
-            pos.z > BOUND_SIZE ||
-            pos.z < -BOUND_SIZE) {
-            Debug.Log("Will Reset");
-            resetPositions();
-            Debug.Log("Did Reset");
-        }
-    }
-
-    void resetPositions() {
-        var allGameObjects = GameObject.FindObjectsOfType<GameObject>();
-        Vector3 playerPos = player.transform.position;
-        Vector3 displacement = Vector3.zero - playerPos;
-        foreach (GameObject o in allGameObjects) {
-            o.transform.Translate(displacement);
-        }
-        player.transform.position = Vector3.zero;
-        player.GetComponent<PlayerController>().translateControlPoints(displacement);
     }
 
     void displayResultPage() {
@@ -90,15 +81,11 @@ public class GameplayController : MonoBehaviour {
             displayResultPage();
         });
 
-        currentBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
+		lastBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
+        currentBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
-
         player.GetComponent<PlayerController>().initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
-        //		nextBlock = generateNextBlockPoints ();
-        //		nextNextBlock = generateNextBlockPoints ();
-        //
-        //		GenerateTunnel (points);
     }
 
     // Update is called once per frame

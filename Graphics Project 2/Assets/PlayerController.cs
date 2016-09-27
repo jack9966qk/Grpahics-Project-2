@@ -66,10 +66,12 @@ public class PlayerController : MonoBehaviour {
         last = next;
         next = secNext;
 
+		gameController.generateMore ();
+		gameController.deleteMore ();
+
         if (track.Count == 0) {
             loadNextTrack();
         }
-
         secNext = track.Dequeue();
     }
 
