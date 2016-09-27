@@ -37,12 +37,8 @@ public class TrackFactory {
 
 		float random = Random.value;
 
-<<<<<<< Updated upstream
-		if (random < 0.25f) {
-=======
 
 		if (random < 1.0f/3) {
->>>>>>> Stashed changes
 			//Almost Straight
 			return getStraight();
 		} else if (random < 2.0f/3) {
