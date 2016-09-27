@@ -48,9 +48,7 @@ public class TrackFactory {
 			//random semi cos arc
 			return getSemiCos ();
 		} 
-
-		return getStraight ();
-
+			
 	}
 
 	private List<Vector3> getStraight(){
@@ -70,7 +68,6 @@ public class TrackFactory {
 		List<Vector3> points = new List<Vector3> ();
 
 		float XorY = Random.value;
-		float degree = Random.value;
 		Vector3 currPoint = last;
 		points.Add (last);
 
@@ -100,7 +97,6 @@ public class TrackFactory {
 	private List<Vector3> getSemiCos(){
 		List<Vector3> points = new List<Vector3> ();
 		float XorY = Random.value;
-		float degree = Random.value;
 		Vector3 currPoint = last;
 		points.Add (last);
 
