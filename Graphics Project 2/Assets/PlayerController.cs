@@ -7,12 +7,12 @@ public class PlayerController : MonoBehaviour {
 
     public GameplayController gameController;
     public Player player { get; private set; }
-    private float velocity = 2f;
-    private float maxVelocity = 5f;
-    private float velocityBoost = 0f;
-    private float accleration = 0.005f;
-    private float angle = 0f;
 
+    public float velocity = 2f;
+    public float maxVelocity = 5f;
+    public float velocityBoost = 0f;
+    public float accleration = 0.005f;
+    public float angle = 0f;
 
     private bool initialised = false;
     private Vector3 last;

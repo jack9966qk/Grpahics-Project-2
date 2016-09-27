@@ -90,9 +90,9 @@ public class GameplayController : MonoBehaviour {
             displayResultPage();
         });
 
-        currentBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
-        nextBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
-        nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getSin());
+        currentBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
+		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
+		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
 
         player.GetComponent<PlayerController>().initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
         //		nextBlock = generateNextBlockPoints ();
@@ -104,7 +104,6 @@ public class GameplayController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //resetIfOutOfBound();
-
         overlay.GetComponent<OverlayController>().loadScore(score);
 
         if (Input.GetKeyDown("s")) {

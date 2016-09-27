@@ -52,3 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1000013648615154, guid: 60579970cb3e84f73928e292e3e3382f, type: 2}
+<<<<<<< Updated upstream
+=======
+  odd: {r: 0.2205882, g: 0.19625862, b: 0.19625862, a: 0}
+  even: {r: 0.65307987, g: 0.3104455, b: 0.72794116, a: 0}
+>>>>>>> Stashed changes

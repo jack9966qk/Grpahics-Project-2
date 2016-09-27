@@ -19,7 +19,7 @@ public class TrackFactory {
 
 	private Vector3 last = Vector3.zero;
 
-	public static int LENGTH = 40;
+	public static int LENGTH = 50;
 
 	public static TrackFactory instance {
 		get {
@@ -30,58 +30,104 @@ public class TrackFactory {
 		}
 	}
 
+	public static float DIST = 0.8f;
+
 
 	public List<Vector3> getBlock(){
 
 		float random = Random.value;
 
+<<<<<<< Updated upstream
 		if (random < 0.25f) {
+=======
+
+		if (random < 1.0f/3) {
+>>>>>>> Stashed changes
 			//Almost Straight
 			return getStraight();
-		} else if (random < 0.5f) {
-			//random sin arc
-
-			return getSin ();
-		} else if (random < 0.75f) {
-			//random circle arc
-			return getStraight ();
-		} else if (random < 1f) {
-			//random S shape
-			return getStraight ();
-
-
-		}
+		} else if (random < 2.0f/3) {
+			//random full cos arc
+			return getFullCos ();
+		} else {
+			//random semi cos arc
+			return getSemiCos ();
+		} 
 
 		return getStraight ();
 
 	}
 
-	public List<Vector3> getStraight(){
+	private List<Vector3> getStraight(){
 		//return a linear track according to last point
 		List<Vector3> points = new List<Vector3> ();
 		for (int i = 0; i < LENGTH ; i++) {
-			points.Add (last + (new Vector3(0f,0f,i)));
+			points.Add (last + (new Vector3(0f,0f,i*DIST)));
 			if(i==LENGTH -1){
-				last = last + (new Vector3 (0f,0f,i));
+				last = last + (new Vector3 (0f,0f,i*DIST));
 			}
 		}
 		return points;
 	}
 
-	public List<Vector3> getSin(){
+	private List<Vector3> getFullCos(){
 		//return a linear track according to last point
 		List<Vector3> points = new List<Vector3> ();
-		float randomX = Random.value;
-		float randomY = Random.value;
-		float randomDegree = Random.value;
-		for (int i = 0; i < LENGTH ; i++) {
-			float degree = i * Mathf.PI / (40 + 90 * randomDegree);
-			points.Add (last + (new Vector3 (40*randomX * Mathf.Sin (degree), randomY * Mathf.Sin (degree), i)));
-			if(i==LENGTH -1){
-				last = last + (new Vector3 (40*randomX * Mathf.Sin (degree), randomY * Mathf.Sin (degree), i));
+
+		float XorY = Random.value;
+		float degree = Random.value;
+		Vector3 currPoint = last;
+		points.Add (last);
+
+		float previousIncline = 0.0f;
+		float incline;
+		for (int i = 1; i < LENGTH ; i++) {
+			incline = 1 - Mathf.Cos (2 * i * Mathf.PI / LENGTH);
+			float forward = Mathf.Sqrt(DIST-(incline-previousIncline)*(incline-previousIncline));
+
+			if (XorY < 0.5) {
+				currPoint.x = incline * DIST + last.x;
 			}
+			if (XorY > 0.5) {
+				currPoint.y = incline * DIST + last.y;
+			}
+			currPoint.z += forward;
+			points.Add (currPoint);
+			if(i==LENGTH-1){
+				last = currPoint;
+			}
+			previousIncline = incline;
 		}
 		return points;
 	}
+
+
+	private List<Vector3> getSemiCos(){
+		List<Vector3> points = new List<Vector3> ();
+		float XorY = Random.value;
+		float degree = Random.value;
+		Vector3 currPoint = last;
+		points.Add (last);
+
+		float previousIncline = 0.0f;
+		float incline;
+		for (int i = 1; i < LENGTH ; i++) {
+			incline = 1 - Mathf.Cos (i * Mathf.PI / LENGTH);
+			float forward = Mathf.Sqrt(DIST-(incline-previousIncline)*(incline-previousIncline));
+			if (XorY < 0.5) {
+				currPoint.x = incline * DIST + last.x;
+			}
+			if (XorY > 0.5) {
+				currPoint.y = incline * DIST + last.y;
+			}
+			currPoint.z += forward;
+			points.Add (currPoint);
+			if(i==LENGTH-1){
+				last = currPoint;
+			}
+			previousIncline = incline;
+		}
+		return points;
+	}
+
 
 }
