@@ -5,8 +5,6 @@ using System.Linq;
 
 
 public class GameplayController : MonoBehaviour {
-
-
     public GameObject resultPage;
     public GameObject overlay;
 
@@ -20,7 +18,7 @@ public class GameplayController : MonoBehaviour {
 
     private int score {
         get {
-            return Mathf.RoundToInt(player.GetComponent<PlayerController>().dist);
+            return Mathf.RoundToInt(player.GetComponent<PlayerOriginController>().dist);
         }
     }
 
@@ -67,17 +65,30 @@ public class GameplayController : MonoBehaviour {
     }
 
     void displayResultPage() {
-        resultPage.GetComponent<ResultPageController>().loadScore(this.score);
-        resultPage.SetActive(true);
+        if (resultPage != null) {
+            if (overlay != null) {
+                overlay.SetActive(false);
+            }
+            resultPage.GetComponent<ResultPageController>().loadScore(this.score);
+            resultPage.SetActive(true);
+        }
+    }
+
+    void prepareUI() {
+        if (resultPage != null) {
+            resultPage.SetActive(false);
+        }
+
+        if (overlay != null) {
+            overlay.SetActive(true);
+        }
     }
 
     // Use this for initialization
     void Start() {
-        resultPage.SetActive(false);
-        overlay.SetActive(true);
+        prepareUI();
 
-        player.GetComponent<PlayerController>().player.destroyActions.Add(delegate {
-            overlay.SetActive(false);
+        player.GetComponent<PlayerOriginController>().player.destroyActions.Add(delegate {
             displayResultPage();
         });
 
@@ -85,16 +96,18 @@ public class GameplayController : MonoBehaviour {
         currentBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
-        player.GetComponent<PlayerController>().initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
+        player.GetComponent<PlayerOriginController>().initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
     }
 
     // Update is called once per frame
     void Update() {
         //resetIfOutOfBound();
-        overlay.GetComponent<OverlayController>().loadScore(score);
+        if (overlay != null) {
+            overlay.GetComponent<OverlayController>().loadScore(score);
+        }
 
         if (Input.GetKeyDown("s")) {
-            player.GetComponent<PlayerController>().player.deductHp(200);
+            player.GetComponent<PlayerOriginController>().player.deductHp(200);
         }
     }
 

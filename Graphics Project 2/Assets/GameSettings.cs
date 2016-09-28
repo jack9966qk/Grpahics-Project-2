@@ -1,4 +1,3 @@
 ﻿public class GameSettings  {
-    public int acclerometerSensitivity = 10;
-
+    public float acclerometerSensitivity = 10f;
 }

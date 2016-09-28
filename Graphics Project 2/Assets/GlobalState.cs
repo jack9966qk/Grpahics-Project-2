@@ -18,10 +18,11 @@ public class GlobalState {
 	}
 
     public GameSettings settings { get; private set; }
+    public AdjustableAcclerometer acclerometer { get; private set; }
 
     protected GlobalState() {
         settings = new GameSettings();
+        acclerometer = new AdjustableAcclerometer();
     }
-
 
 }
