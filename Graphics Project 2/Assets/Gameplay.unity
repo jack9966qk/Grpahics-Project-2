@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d18bd911ed924347b3a04b481c65121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerOriginController: {fileID: 378232826}
 --- !u!1 &378232825
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +165,7 @@ MonoBehaviour:
   playerObjectController: {fileID: 190419533}
   velocity: 18
   maxVelocity: 40
+  extraVelocity: 0
   accleration: 0.005
   angle: 0
   keyboardSpeed: 5

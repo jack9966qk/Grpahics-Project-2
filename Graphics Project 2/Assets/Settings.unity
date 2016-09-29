@@ -405,6 +405,7 @@ MonoBehaviour:
   playerObjectController: {fileID: 887819508}
   velocity: 8
   maxVelocity: 8
+  extraVelocity: 0
   accleration: 0.005
   angle: 0
   keyboardSpeed: 20
@@ -1130,6 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d18bd911ed924347b3a04b481c65121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerOriginController: {fileID: 364545250}
 --- !u!4 &887819509
 Transform:
   m_ObjectHideFlags: 0
@@ -1235,7 +1237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPage: {fileID: 0}
   overlay: {fileID: 0}
-  player: {fileID: 364545248}
+  playerOriginController: {fileID: 364545250}
+  playerObjectController: {fileID: 887819508}
   tunnelBlockPrefab: {fileID: 1000010918543800, guid: 6f39f4ce344b84e11b482cd514536329,
     type: 2}
 --- !u!4 &1187338893
