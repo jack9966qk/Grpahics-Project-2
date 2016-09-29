@@ -9,7 +9,7 @@ public class HealthRecovery : Item {
         p.deductHp(-RECOVERY_AMOUNT);
     }
 
-    public override void applyEffectOnPlayerController(PlayerController c) {
+    public override void applyEffectOnPlayerController(PlayerOriginController c) {
         return;
     }
 }

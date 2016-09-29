@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerOriginController : MonoBehaviour {
 
     public GameplayController gameController;
+    public GameObject playerObject;
+    public PlayerObjectController playerObjectController;
     public Player player { get; private set; }
+	public float velocity = 2f;
+	public float maxVelocity = 5f;
+	public float accleration = 0.005f;
+	public float angle = 0f;
+    public float keyboardSpeed = 5f;
 
-    public float velocity = 2f;
-    public float maxVelocity = 5f;
-    public float velocityBoost = 0f;
-    public float accleration = 0.005f;
-    public float angle = 0f;
 
     private bool initialised = false;
     private Vector3 last;
@@ -39,15 +41,28 @@ public class PlayerController : MonoBehaviour {
         }
 
         applyAccleration();
-        moveForwardByDist((velocity + velocityBoost) * Time.fixedDeltaTime);
+        moveForwardByDist(velocity * Time.fixedDeltaTime);
+
+        handleInput();
     }
 
-    public void makeInvincibleForSecs(float secs) {
-        throw new NotImplementedException();
-    }
+    void handleInput() {
 
-    public void temporarySpeedBoost(float secs, float amount) {
-        throw new NotImplementedException();
+        // keyboard control
+        if (Input.GetKey(KeyCode.A)) {
+            this.transform.rotation *= Quaternion.AngleAxis(-keyboardSpeed * Time.deltaTime, Vector3.forward);
+        }
+
+        if (Input.GetKey(KeyCode.D)) {
+            this.transform.rotation *= Quaternion.AngleAxis(keyboardSpeed * Time.deltaTime, Vector3.forward);
+        }
+
+        // acclerometer control
+        Vector3 acceleration = AdjustableAcclerometer.getAdjustedAccleration();
+        this.transform.rotation *= Quaternion.AngleAxis(
+            -acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
+            Vector3.forward);
+
     }
 
     public void initialise(List<Vector3> firstTrack) {
@@ -105,12 +120,13 @@ public class PlayerController : MonoBehaviour {
             stepOne();
             progress -= 1.0f;
         }
-        
-        Quaternion lastDirection = Quaternion.LookRotation(next - last, Vector3.up);
-        Quaternion nextDirection = Quaternion.LookRotation(secNext - next, Vector3.up);
+
+        Vector3 lastDirection = next - last;
+        Vector3 nextDirection = secNext - next;
 
         this.transform.position = Vector3.Lerp(last, next, progress);
-        this.transform.rotation = Quaternion.Lerp(lastDirection, nextDirection, progress);
+        var lerpedRotation = Vector3.Lerp(lastDirection, nextDirection, progress);
+        playerObject.transform.rotation = Quaternion.LookRotation(lerpedRotation, this.transform.position - playerObject.transform.position);
 
         this.dist += t;
         this.unitProgress = progress;
