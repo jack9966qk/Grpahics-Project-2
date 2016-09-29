@@ -67,7 +67,7 @@ public class CubeObstacleController : MonoBehaviour
 	}
 
 	public void OnCollisionEnter(Collision collision) {
-		obstacleModel.onCollisionWithPlayer (collision.gameObject.GetComponent<PlayerOriginController>().player);
+		obstacleModel.onCollisionWithPlayer (collision.gameObject.GetComponent<PlayerObjectController>().player);
 	}
 
 

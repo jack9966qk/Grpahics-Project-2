@@ -8,7 +8,8 @@ public class GameplayController : MonoBehaviour {
     public GameObject resultPage;
     public GameObject overlay;
 
-    public GameObject player;
+    public PlayerOriginController playerOriginController;
+    public PlayerObjectController playerObjectController;
     public GameObject tunnelBlockPrefab;
 
     private GameObject lastBlock;
@@ -18,7 +19,7 @@ public class GameplayController : MonoBehaviour {
 
     private int score {
         get {
-            return Mathf.RoundToInt(player.GetComponent<PlayerOriginController>().dist);
+            return Mathf.RoundToInt(playerOriginController.dist);
         }
     }
 
@@ -88,7 +89,7 @@ public class GameplayController : MonoBehaviour {
     void Start() {
         prepareUI();
 
-        player.GetComponent<PlayerOriginController>().player.destroyActions.Add(delegate {
+        playerObjectController.player.destroyActions.Add(delegate {
             displayResultPage();
         });
 
@@ -96,7 +97,7 @@ public class GameplayController : MonoBehaviour {
         currentBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
 		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
-        player.GetComponent<PlayerOriginController>().initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
+        playerOriginController.initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
     }
 
     // Update is called once per frame
@@ -107,7 +108,7 @@ public class GameplayController : MonoBehaviour {
         }
 
         if (Input.GetKeyDown("s")) {
-            player.GetComponent<PlayerOriginController>().player.deductHp(200);
+            playerObjectController.player.deductHp(200);
         }
     }
 

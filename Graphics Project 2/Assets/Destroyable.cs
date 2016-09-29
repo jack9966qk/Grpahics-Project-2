@@ -10,7 +10,7 @@ public abstract class Destroyable {
     public List<Action> damageActions = new List<Action>();
     public List<Action> recoveryActions = new List<Action>();
 
-    override public void deductHp(int amount) {
+    public virtual void deductHp(int amount) {
         if (amount >= 0) {
             this.hp = Math.Max(this.hp - amount, 0);
             doActions(damageActions);

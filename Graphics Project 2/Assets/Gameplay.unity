@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37356424, g: 0.3811201, b: 0.35887662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37356418, g: 0.38112003, b: 0.35887662, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   maxVelocity: 40
   accleration: 0.005
   angle: 0
-  keyboardSpeed: 20
+  keyboardSpeed: 5
   trackRadius: 0.7
 --- !u!4 &378232827
 Transform:
@@ -339,8 +339,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 393.5, y: 220}
-  m_SizeDelta: {x: 787, y: 440}
+  m_AnchoredPosition: {x: 536, y: 189.5}
+  m_SizeDelta: {x: 1072, y: 379}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &559606000
 MonoBehaviour:
@@ -1231,7 +1231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPage: {fileID: 551805697}
   overlay: {fileID: 559605998}
-  player: {fileID: 378232825}
+  playerOriginController: {fileID: 378232826}
+  playerObjectController: {fileID: 190419533}
   tunnelBlockPrefab: {fileID: 1000010918543800, guid: 6f39f4ce344b84e11b482cd514536329,
     type: 2}
 --- !u!4 &1964783676

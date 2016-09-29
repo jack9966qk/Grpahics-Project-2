@@ -12,4 +12,12 @@ public class HealthRecovery : Item {
     public override void applyEffectOnPlayerController(PlayerOriginController c) {
         return;
     }
+
+    public override string getDescription() {
+        return "An item that restores health when used";
+    }
+
+    public override string getName() {
+        return "Health Recovery";
+    }
 }

@@ -8,7 +8,6 @@ public class PlayerOriginController : MonoBehaviour {
     public GameplayController gameController;
     public GameObject playerObject;
     public PlayerObjectController playerObjectController;
-    public Player player { get; private set; }
 	public float velocity = 2f;
 	public float maxVelocity = 5f;
 	public float accleration = 0.005f;
@@ -17,6 +16,7 @@ public class PlayerOriginController : MonoBehaviour {
 
 
     private bool initialised = false;
+
     private Vector3 last;
     private Vector3 next;
     private Vector3 secNext;
@@ -28,15 +28,15 @@ public class PlayerOriginController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         dist = 0f;
-        player = new Player(100);
-        player.destroyActions.Add(delegate {
-            this.gameObject.SetActive(false);
-        });
     }
 
     // Update is called once per frame
     void Update() {
         if (!initialised) {
+            return;
+        }
+
+        if (playerObject == null) {
             return;
         }
 
