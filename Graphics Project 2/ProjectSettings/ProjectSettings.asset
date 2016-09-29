@@ -340,11 +340,11 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   metroPackageName: Graphics Project 2
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 80bc86d68038d301
   metroApplicationDescription: Graphics Project 2
   wsaImages: {}
   metroTileShortName: 

@@ -27,7 +27,7 @@ public class SettingPageController : MonoBehaviour {
     }
 
     public void recalibrate() {
-        GlobalState.instance.acclerometer.recalibrate();
+        AdjustableAcclerometer.recalibrate();
     }
 
 

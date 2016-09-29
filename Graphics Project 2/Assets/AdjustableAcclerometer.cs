@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AdjustableAcclerometer {
-    private Vector3 offset = Vector3.zero;
-    public Vector3 adjustedAcceleration {
-        get {
-            return Input.acceleration - offset;
-        }
+public static class AdjustableAcclerometer {
+    public static Vector3 getAdjustedAccleration() {
+        return Input.acceleration - GlobalState.instance.settings.acclerometerOffset;
     }
 
-    public void recalibrate() {
-       offset = Input.acceleration;
+    public static void recalibrate() {
+        GlobalState.instance.settings.acclerometerOffset = Input.acceleration;
     }
 }
