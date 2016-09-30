@@ -3,16 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Player : Destroyable {
-    public Item item;
+    private Item _item = null;
+    public Item item {
+        get {
+            return _item;
+        } set {
+            _item = value;
+            if (value != null) {
+                _item.player = this;
+            }
+        }
+    }
+
     public bool isInvincible = false;
-    public List<Action<Item>> onItemTriggeredAction = new List<Action<Item>>();
 
     public void triggerItem() {
-        item.applyEffectOnPlayer(this);
-        foreach (Action<Item> a in onItemTriggeredAction) {
-            a(this.item);
+        if (item != null) {
+            item.applyEffect();
         }
-        item = null;
     }
 
     override public void deductHp(int amount) {

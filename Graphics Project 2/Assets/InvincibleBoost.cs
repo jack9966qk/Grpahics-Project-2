@@ -3,14 +3,36 @@ using System.Collections;
 using System;
 
 public class InvincibleBoost : Item {
-    public override void applyEffectOnPlayer(Player p) {
-        p.isInvincible = true;
-        // TODO disable after a certain time
+    const float EFFECT_LENGTH = 5f;
+    const float BOOST_VELOCITY = 10f;
+
+    IEnumerator doAfterSeconds(float secs, Action action) {
+        yield return new WaitForSeconds(secs);
+        action();
     }
 
-    public override void applyEffectOnPlayerController(PlayerOriginController c) {
-        c.extraVelocity = 10f;
-        // TODO disable after a certain time
+    protected override void applyEffectOnPlayer(Player p) {
+        p.isInvincible = true;
+        GlobalState.instance.gameController.StartCoroutine(
+            doAfterSeconds(EFFECT_LENGTH, delegate {
+                p.isInvincible = false;
+                markPlayerEffectComplete();
+            })
+        );
+    }
+
+    protected override void applyEffectOnPlayerController(PlayerOriginController c) {
+        c.extraVelocity += BOOST_VELOCITY;
+        GlobalState.instance.gameController.StartCoroutine(
+            doAfterSeconds(EFFECT_LENGTH, delegate {
+                c.extraVelocity -= BOOST_VELOCITY;
+                markControllerEffectComplete();
+            })
+        );
+        doAfterSeconds(EFFECT_LENGTH, delegate {
+            c.extraVelocity -= BOOST_VELOCITY;
+            markControllerEffectComplete();
+        });
     }
 
     public override string getDescription() {
