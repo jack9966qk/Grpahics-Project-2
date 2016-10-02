@@ -16,7 +16,17 @@ public class PlayerObjectController : DestroyableController {
         setSelfToBeDestroyedWith(player);
     }
 
+    void handleTouch() {
+        if (Input.touchCount > 0) {
+            if (Input.GetTouch(0).phase == TouchPhase.Began) {
+                player.triggerItem();
+            }
+        }
+    }
+
     void Update() {
+        handleTouch();
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             player.triggerItem();
         }

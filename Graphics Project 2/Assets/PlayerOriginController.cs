@@ -61,8 +61,9 @@ public class PlayerOriginController : MonoBehaviour {
         // acclerometer control
         Vector3 acceleration = AdjustableAcclerometer.getAdjustedAccleration();
         this.transform.rotation *= Quaternion.AngleAxis(
-            -acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
-            Vector3.forward);
+            acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
+            Vector3.forward
+        );
 
     }
 

@@ -87,6 +87,7 @@ public class GameplayController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Application.targetFrameRate = 60;
         GlobalState.instance.gameController = this;
         prepareUI();
 
