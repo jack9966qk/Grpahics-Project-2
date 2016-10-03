@@ -5,12 +5,13 @@ using System;
 public class HealthRecovery : Item {
     private const int RECOVERY_AMOUNT = 50;
 
-    public override void applyEffectOnPlayer(Player p) {
+    protected override void applyEffectOnPlayer(Player p) {
         p.deductHp(-RECOVERY_AMOUNT);
+        markPlayerEffectComplete();
     }
 
-    public override void applyEffectOnPlayerController(PlayerOriginController c) {
-        return;
+    protected override void applyEffectOnPlayerController(PlayerOriginController c) {
+        markControllerEffectComplete();
     }
 
     public override string getDescription() {

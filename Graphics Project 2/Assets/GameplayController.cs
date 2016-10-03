@@ -87,6 +87,8 @@ public class GameplayController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Application.targetFrameRate = 60;
+        GlobalState.instance.gameController = this;
         prepareUI();
 
         playerObjectController.player.destroyActions.Add(delegate {
@@ -104,11 +106,15 @@ public class GameplayController : MonoBehaviour {
     void Update() {
         //resetIfOutOfBound();
         if (overlay != null) {
-            overlay.GetComponent<OverlayController>().loadScore(score);
+            var controller = overlay.GetComponent<OverlayController>();
+            controller.loadScore(score);
+            controller.loadItem(playerObjectController.player.item);
+            controller.loadHP(playerObjectController.player.hp,
+                playerObjectController.player.maxHp);
         }
 
         if (Input.GetKeyDown("s")) {
-            playerObjectController.player.deductHp(200);
+            playerObjectController.player.deductHp(50);
         }
     }
 

@@ -30,6 +30,15 @@ public class SettingPageController : MonoBehaviour {
         AdjustableAcclerometer.recalibrate();
     }
 
+    public void toggleCameraView() {
+        var camSetting = GlobalState.instance.settings.cameraSetting;
+        if (camSetting == GameSettings.CameraSetting.FirstPerson) {
+            GlobalState.instance.settings.cameraSetting = GameSettings.CameraSetting.ThirdPerson;
+        } else if (camSetting == GameSettings.CameraSetting.ThirdPerson) {
+            GlobalState.instance.settings.cameraSetting = GameSettings.CameraSetting.FirstPerson;
+        }
+    }
+
 
 	// Use this for initialization
 	void Start () {

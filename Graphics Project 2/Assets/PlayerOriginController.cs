@@ -10,6 +10,7 @@ public class PlayerOriginController : MonoBehaviour {
     public PlayerObjectController playerObjectController;
 	public float velocity = 2f;
 	public float maxVelocity = 5f;
+    public float extraVelocity = 0f;
 	public float accleration = 0.005f;
 	public float angle = 0f;
     public float keyboardSpeed = 5f;
@@ -41,7 +42,7 @@ public class PlayerOriginController : MonoBehaviour {
         }
 
         applyAccleration();
-        moveForwardByDist(velocity * Time.fixedDeltaTime);
+        moveForwardByDist((extraVelocity + velocity) * Time.fixedDeltaTime);
 
         handleInput();
     }
@@ -60,8 +61,9 @@ public class PlayerOriginController : MonoBehaviour {
         // acclerometer control
         Vector3 acceleration = AdjustableAcclerometer.getAdjustedAccleration();
         this.transform.rotation *= Quaternion.AngleAxis(
-            -acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
-            Vector3.forward);
+            acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
+            Vector3.forward
+        );
 
     }
 

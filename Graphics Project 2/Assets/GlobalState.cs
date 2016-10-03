@@ -17,6 +17,7 @@ public class GlobalState {
 		}
 	}
 
+    public MonoBehaviour gameController;
     public GameSettings settings { get; private set; }
 
     protected GlobalState() {
