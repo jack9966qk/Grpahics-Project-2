@@ -6,7 +6,7 @@ public class PlayerObjectController : DestroyableController {
     public Player player { get; private set; }
     public PlayerOriginController playerOriginController;
 
-    void addItemToPlayer(Item item) {
+    public void addItemToPlayer(Item item) {
         player.item = item;
         item.controller = playerOriginController;
     }
