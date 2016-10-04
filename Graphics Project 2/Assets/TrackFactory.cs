@@ -4,54 +4,18 @@ using System.Collections.Generic;
 
 
 /// <summary>
-/// Track factory. Singleton class
-/// 
-/// It can generate a list of vertices which represent a track by calling
-/// getBlock() function.
-/// 
-/// Sample Usage: 
-///     List<Vector3> track = TrackFactory.instance.getBlock();
+/// Track factory. Static class
 /// 
 /// </summary>
-public class TrackFactory {
+public static class TrackFactory {
 
-	private static TrackFactory _instance = null;
-
-	private Vector3 last = Vector3.zero;
+	private static Vector3 last = Vector3.zero;
 
 	public static int LENGTH = 50;
 
-	public static TrackFactory instance {
-		get {
-			if (_instance == null) {
-				_instance = new TrackFactory ();
-			}
-			return TrackFactory._instance;
-		}
-	}
-
 	public static float DIST = 0.8f;
 
-
-	public List<Vector3> getBlock(){
-
-		float random = Random.value;
-
-
-		if (random < 1.0f/3) {
-			//Almost Straight
-			return getStraight();
-		} else if (random < 2.0f/3) {
-			//random full cos arc
-			return getFullCos ();
-		} else {
-			//random semi cos arc
-			return getSemiCos ();
-		} 
-			
-	}
-
-	private List<Vector3> getStraight(){
+	public static List<Vector3> GetStraight(){
 		//return a linear track according to last point
 		List<Vector3> points = new List<Vector3> ();
 		for (int i = 0; i < LENGTH ; i++) {
@@ -63,11 +27,11 @@ public class TrackFactory {
 		return points;
 	}
 
-	private List<Vector3> getFullCos(){
+
+	public static List<Vector3> GetFullCos(float XorY){
 		//return a linear track according to last point
 		List<Vector3> points = new List<Vector3> ();
 
-		float XorY = Random.value;
 		Vector3 currPoint = last;
 		points.Add (last);
 
@@ -94,9 +58,9 @@ public class TrackFactory {
 	}
 
 
-	private List<Vector3> getSemiCos(){
+	public static List<Vector3> GetSemiCos(float XorY){
 		List<Vector3> points = new List<Vector3> ();
-		float XorY = Random.value;
+
 		Vector3 currPoint = last;
 		points.Add (last);
 
@@ -118,6 +82,30 @@ public class TrackFactory {
 			}
 			previousIncline = incline;
 		}
+		return points;
+	}
+
+
+
+	public static List<Vector3> GetFullCosOnce(float XorY){
+		//return a linear track according to last point
+		List<Vector3> points = GetFullCos(XorY);
+		last = Vector3.zero;
+		return points;
+	}
+
+
+	public static List<Vector3> GetSemiCosOnce(float XorY){
+		List<Vector3> points = GetSemiCos(XorY);
+		last = Vector3.zero;
+		return points;
+	}
+
+
+	public static List<Vector3> GetStraightOnce(){
+		//return a linear track according to last point
+		List<Vector3> points = GetStraight();
+		last = Vector3.zero;
 		return points;
 	}
 

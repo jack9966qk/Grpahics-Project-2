@@ -24,6 +24,7 @@ public class TunnelBlock : MonoBehaviour {
                 this.transform.TransformDirection(vec)
             ));
         }
+
     }
 
     public void GenerateTunnel(List<Vector3> points) {
@@ -61,6 +62,10 @@ public class TunnelBlock : MonoBehaviour {
 			GameObject t = Instantiate(tile);
 			tiles.Enqueue (t);
 			t.transform.parent = this.gameObject.transform;
+			if (ObjectType.CubeObstacle == RandomGenerator.Generate (last, point)) {
+
+			}
+
 			t.GetComponent<Tile>().CreateTileMesh((Vector3)last, point, degree, RADIUS,count%2==0?odd:even);
 		}
 		count++;
@@ -74,6 +79,10 @@ public class TunnelBlock : MonoBehaviour {
 		for (float degree = 0; degree < 360; degree = degree + 30) {
 			GameObject.Destroy (tiles.Dequeue());
 		}
+	}
+
+	public void SetTrack(List<Vector3> localTrack){
+		this.localTrack = localTrack;
 	}
 
 }

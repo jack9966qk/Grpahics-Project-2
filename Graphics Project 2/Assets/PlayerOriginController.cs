@@ -83,9 +83,6 @@ public class PlayerOriginController : MonoBehaviour {
         last = next;
         next = secNext;
 
-		gameController.generateMore ();
-		gameController.deleteMore ();
-
         if (track.Count == 0) {
             loadNextTrack();
         }
@@ -93,7 +90,7 @@ public class PlayerOriginController : MonoBehaviour {
     }
 
     void loadNextTrack() {
-         track = new Queue<Vector3>(gameController.gotoNextBlock());
+         track = new Queue<Vector3>(gameController.GoToNextBlock());
          track.Dequeue();
 
     }

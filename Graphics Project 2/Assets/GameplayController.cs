@@ -10,72 +10,82 @@ public class GameplayController : MonoBehaviour {
 
     public PlayerOriginController playerOriginController;
     public PlayerObjectController playerObjectController;
+	public GameObject playerWorldPosition;
     public GameObject tunnelBlockPrefab;
 
-    private GameObject lastBlock;
     private GameObject currentBlock;
     private GameObject nextBlock;
-    private GameObject nextNextBlock;
+	private GameObject nextNextBlock;
 
-    private int score {
+
+	private GameObject straight;
+	private GameObject xCos;
+	private GameObject yCos;
+	private GameObject xSemiCos;
+	private GameObject ySemiCos;
+
+	private int blockCounter = -1;
+
+    private int Score {
         get {
             return Mathf.RoundToInt(playerOriginController.dist);
         }
     }
 
-    GameObject generateNewTunnelBlock(List<Vector3> track) {
-        var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
-        newBlock.GetComponent<TunnelBlock>().GenerateTunnel(track);
-        return newBlock;
-    }
-
-	GameObject instantGenerateNewTunnelBlock(List<Vector3> track) {
+	GameObject GenerateNewTunnelBlock(List<Vector3> track) {
 		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
 		newBlock.GetComponent<TunnelBlock>().InstantGenerateTunnel(track);
 		return newBlock;
 	}
 
-	public void generateMore(){
-		nextBlock.GetComponent<TunnelBlock> ().GenerateOneCircle ();
-	}
-
-	public void deleteMore(){
-		lastBlock.GetComponent<TunnelBlock> ().DeleteOneCirle ();
-	}
-
-    public List<Vector3> gotoNextBlock() {
-        // destroy lastBlock
-        if (lastBlock != null) {
-            GameObject.Destroy(lastBlock);
-        }
-
-		generateMore ();
-		deleteMore ();
-
-        // pass over
-        lastBlock = currentBlock;
+    public List<Vector3> GoToNextBlock() {
+        
         currentBlock = nextBlock;
-        nextBlock = nextNextBlock;
-
-        // generate nextnextBlock
-        List<Vector3> newTrack = TrackFactory.instance.getBlock();
-        nextNextBlock = generateNewTunnelBlock(newTrack);
-
+		nextBlock = nextNextBlock;
+		nextNextBlock = GetNextBlock();
+		nextNextBlock.transform.position = nextNextBlock.GetComponent<TunnelBlock> ().track [0];
+        
         return currentBlock.GetComponent<TunnelBlock>().track;
 
     }
 
-    void displayResultPage() {
+	private GameObject GetNextBlock(){
+		blockCounter++;
+
+		if(blockCounter%5 == 0){
+			straight.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetStraight());
+			return straight;
+		}
+		if(blockCounter%5 == 1){
+			xCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(0f));
+			return xCos;
+		}
+		if(blockCounter%5 == 2){
+			yCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(1));
+			return yCos;
+		}
+		if(blockCounter%5 == 3){
+			xSemiCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(0f));
+			return xSemiCos;
+		}
+		if(blockCounter%5 == 4){
+			ySemiCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(1f));
+			return ySemiCos;
+		}
+		return null;
+	}
+
+    void DisplayResultPage() {
         if (resultPage != null) {
             if (overlay != null) {
                 overlay.SetActive(false);
             }
-            resultPage.GetComponent<ResultPageController>().loadScore(this.score);
+            resultPage.GetComponent<ResultPageController>().loadScore(this.Score);
             resultPage.SetActive(true);
         }
     }
 
-    void prepareUI() {
+    void PrepareUI() {
         if (resultPage != null) {
             resultPage.SetActive(false);
         }
@@ -87,19 +97,35 @@ public class GameplayController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+
+		straight = GenerateNewTunnelBlock (TrackFactory.GetStraightOnce());
+		xCos = GenerateNewTunnelBlock (TrackFactory.GetFullCosOnce(0f));
+		yCos = GenerateNewTunnelBlock (TrackFactory.GetFullCosOnce(1f));
+		xSemiCos = GenerateNewTunnelBlock (TrackFactory.GetSemiCosOnce(0f));
+		ySemiCos = GenerateNewTunnelBlock (TrackFactory.GetSemiCosOnce(1f));
+
+		xCos.transform.position = new Vector3 (0, 10, 0);
+		yCos.transform.position = new Vector3 (0, 10, 0);
+		xSemiCos.transform.position = new Vector3 (0, 10, 0);
+		ySemiCos.transform.position = new Vector3 (0, 10, 0);
+
+		currentBlock = GetNextBlock();
+		nextBlock = GetNextBlock();
+		nextBlock.transform.position = nextBlock.GetComponent<TunnelBlock> ().track [0];
+		nextNextBlock = GetNextBlock();
+		nextNextBlock.transform.position = nextNextBlock.GetComponent<TunnelBlock> ().track [0];
+
         Application.targetFrameRate = 60;
         GlobalState.instance.gameController = this;
-        prepareUI();
+        PrepareUI();
 
         playerObjectController.player.destroyActions.Add(delegate {
-            displayResultPage();
+            DisplayResultPage();
         });
 
-		lastBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
-        currentBlock = instantGenerateNewTunnelBlock(TrackFactory.instance.getBlock());
-		nextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
-		nextNextBlock = generateNewTunnelBlock(TrackFactory.instance.getBlock());
-        playerOriginController.initialise(this.currentBlock.GetComponent<TunnelBlock>().track);
+
+		playerOriginController.initialise(currentBlock.GetComponent<TunnelBlock>().track);
+
     }
 
     // Update is called once per frame
@@ -107,7 +133,7 @@ public class GameplayController : MonoBehaviour {
         //resetIfOutOfBound();
         if (overlay != null) {
             var controller = overlay.GetComponent<OverlayController>();
-            controller.loadScore(score);
+            controller.loadScore(Score);
             controller.loadItem(playerObjectController.player.item);
             controller.loadHP(playerObjectController.player.hp,
                 playerObjectController.player.maxHp);
