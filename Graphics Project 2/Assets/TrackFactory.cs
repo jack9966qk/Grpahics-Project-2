@@ -11,7 +11,7 @@ public static class TrackFactory {
 
 	private static Vector3 last = Vector3.zero;
 
-	public static int LENGTH = 50;
+	public static int LENGTH = 30;
 
 	public static float DIST = 0.8f;
 

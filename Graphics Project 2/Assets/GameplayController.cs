@@ -17,12 +17,17 @@ public class GameplayController : MonoBehaviour {
     private GameObject nextBlock;
 	private GameObject nextNextBlock;
 
-
 	private GameObject straight;
 	private GameObject xCos;
 	private GameObject yCos;
 	private GameObject xSemiCos;
 	private GameObject ySemiCos;
+
+	private GameObject straightObs;
+	private GameObject xCosObs;
+	private GameObject yCosObs;
+	private GameObject xSemiCosObs;
+	private GameObject ySemiCosObs;
 
 	private int blockCounter = -1;
 
@@ -32,46 +37,77 @@ public class GameplayController : MonoBehaviour {
         }
     }
 
-	GameObject GenerateNewTunnelBlock(List<Vector3> track) {
+	GameObject GenerateTunnelBlock(List<Vector3> track) {
 		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
-		newBlock.GetComponent<TunnelBlock>().InstantGenerateTunnel(track);
+		newBlock.GetComponent<TunnelBlock>().GenerateTunnel(track);
 		return newBlock;
 	}
 
+	GameObject GenerateTunnelBlockWithSomeObs(List<Vector3> track) {
+		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
+		newBlock.GetComponent<TunnelBlock>().GenerateTunnelWithSomeObs(track);
+		return newBlock;
+	}
+
+	GameObject GenerateTunnelBlockWithRoundObs(List<Vector3> track) {
+		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
+		newBlock.GetComponent<TunnelBlock>().GenerateTunnelWithRoundObs(track);
+		return newBlock;
+	}
+
+
     public List<Vector3> GoToNextBlock() {
-        
         currentBlock = nextBlock;
 		nextBlock = nextNextBlock;
 		nextNextBlock = GetNextBlock();
 		nextNextBlock.transform.position = nextNextBlock.GetComponent<TunnelBlock> ().track [0];
-        
         return currentBlock.GetComponent<TunnelBlock>().track;
-
     }
 
 	private GameObject GetNextBlock(){
 		blockCounter++;
 
-		if(blockCounter%5 == 0){
+		if(blockCounter%10 == 0){
 			straight.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetStraight());
 			return straight;
 		}
-		if(blockCounter%5 == 1){
-			xCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(0f));
-			return xCos;
+		if(blockCounter%10 == 1){
+			xCosObs.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(0f));
+			return xCosObs;
 		}
-		if(blockCounter%5 == 2){
-			yCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(1));
-			return yCos;
-		}
-		if(blockCounter%5 == 3){
-			xSemiCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(0f));
-			return xSemiCos;
-		}
-		if(blockCounter%5 == 4){
+		if(blockCounter%10 == 2){
 			ySemiCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(1f));
 			return ySemiCos;
 		}
+		if(blockCounter%10 == 3){
+			xSemiCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(0f));
+			return xSemiCos;
+		}
+		if(blockCounter%10 == 4){
+			yCosObs.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(1f));
+			return yCosObs;
+		}
+		if(blockCounter%10 == 5){
+			straightObs.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetStraight());
+			return straightObs;
+		}
+		if(blockCounter%10 == 6){
+			xCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(0f));
+			return xCos;
+		}
+		if(blockCounter%10 == 7){
+			xSemiCosObs.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(0f));
+			return xSemiCosObs;
+		}
+		if(blockCounter%10 == 8){
+			yCos.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetFullCos(1f));
+			return yCos;
+		}
+		if(blockCounter%10 == 9){
+			ySemiCosObs.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetSemiCos(1f));
+			return ySemiCosObs;
+		}
+			
 		return null;
 	}
 
@@ -98,16 +134,30 @@ public class GameplayController : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-		straight = GenerateNewTunnelBlock (TrackFactory.GetStraightOnce());
-		xCos = GenerateNewTunnelBlock (TrackFactory.GetFullCosOnce(0f));
-		yCos = GenerateNewTunnelBlock (TrackFactory.GetFullCosOnce(1f));
-		xSemiCos = GenerateNewTunnelBlock (TrackFactory.GetSemiCosOnce(0f));
-		ySemiCos = GenerateNewTunnelBlock (TrackFactory.GetSemiCosOnce(1f));
+		straight = GenerateTunnelBlock (TrackFactory.GetStraightOnce());
+		xCos = GenerateTunnelBlock (TrackFactory.GetFullCosOnce(0f));
+		yCos = GenerateTunnelBlock (TrackFactory.GetFullCosOnce(1f));
+		xSemiCos = GenerateTunnelBlock (TrackFactory.GetSemiCosOnce(0f));
+		ySemiCos = GenerateTunnelBlock (TrackFactory.GetSemiCosOnce(1f));
+
+
+		straightObs = GenerateTunnelBlockWithRoundObs (TrackFactory.GetStraightOnce());
+		xCosObs = GenerateTunnelBlockWithSomeObs (TrackFactory.GetFullCosOnce(0f));
+		yCosObs = GenerateTunnelBlockWithSomeObs (TrackFactory.GetFullCosOnce(1f));
+		xSemiCosObs = GenerateTunnelBlockWithSomeObs (TrackFactory.GetSemiCosOnce(0f));
+		ySemiCosObs = GenerateTunnelBlockWithRoundObs (TrackFactory.GetSemiCosOnce(1f));
+
 
 		xCos.transform.position = new Vector3 (0, 10, 0);
 		yCos.transform.position = new Vector3 (0, 10, 0);
 		xSemiCos.transform.position = new Vector3 (0, 10, 0);
 		ySemiCos.transform.position = new Vector3 (0, 10, 0);
+		straightObs.transform.position = new Vector3 (0, 10, 0);
+		xCosObs.transform.position = new Vector3 (0, 10, 0);
+		yCosObs.transform.position = new Vector3 (0, 10, 0);
+		xSemiCosObs.transform.position = new Vector3 (0, 10, 0);
+		ySemiCosObs.transform.position = new Vector3 (0, 10, 0);
+
 
 		currentBlock = GetNextBlock();
 		nextBlock = GetNextBlock();

@@ -22,27 +22,11 @@ public class CubeObstacleController : MonoBehaviour
 
 	// Called each frame
 	void Update() {
-		// Get renderer component (in order to pass params to shader)
-		MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-
-		// Pass updated light positions to shader
-		Vector4[] lightPositions = new Vector4[this.pointLights.Length];
-		Color[] lightColors = new Color[this.pointLights.Length];
-
-		if (this.pointLights.Length > MAX_LIGHTS) {
-			Debug.LogError("Number of lights exceeds the maximum shader limit");
-		}
-		else {
-			// Pass the actual number of lights to the shader
-			renderer.material.SetInt("_NumPointLights", this.pointLights.Length);
-
-			renderer.material.SetVectorArray( "_PointLightPositions", lightPositions);
-			renderer.material.SetColorArray( "_PointLightColors", lightColors);
-		}
+		
 	}
 
 
-	public void PutCube(Vector3 origin, float degree, float radius) {
+	public void PutCube(Vector3 origin, Vector3 back, float degree, float radius) {
 
 		obstacleModel = new NormalObstacle (10);
 
@@ -52,6 +36,9 @@ public class CubeObstacleController : MonoBehaviour
 		// Add a MeshRenderer component. This component actually renders the mesh that
 		// is defined by the MeshFilter component.
 		MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
+		MeshCollider collider = this.gameObject.AddComponent<MeshCollider> ();
+		collider.sharedMesh = cubeMesh.mesh;
+
 		renderer.material.shader = shader;
 		renderer.material.SetTexture ("_MainTex", texture);
 		renderer.material.SetTexture ("_NormalTex", normal);
@@ -67,6 +54,7 @@ public class CubeObstacleController : MonoBehaviour
 	}
 
 	public void OnCollisionEnter(Collision collision) {
+		Debug.Log ("Collide");
 		obstacleModel.onCollisionWithPlayer (collision.gameObject.GetComponent<PlayerObjectController>().player);
 	}
 

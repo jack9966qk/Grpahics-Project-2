@@ -52,5 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1000013648615154, guid: 60579970cb3e84f73928e292e3e3382f, type: 2}
+  CubeObstacle: {fileID: 1000010228650636, guid: 155c2981a4a0f4eef89c191944b7b8a7,
+    type: 2}
   odd: {r: 1, g: 0.5514706, b: 0.5514706, a: 0}
   even: {r: 0.1397059, g: 0.09450693, b: 0.09450693, a: 0}
