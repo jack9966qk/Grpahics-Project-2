@@ -15,7 +15,6 @@ public class GameplayController : MonoBehaviour {
 
     private GameObject currentBlock;
     private GameObject nextBlock;
-	private GameObject nextNextBlock;
 
 	private GameObject straight;
 	private GameObject xCos;
@@ -28,8 +27,9 @@ public class GameplayController : MonoBehaviour {
 	private GameObject yCosObs;
 	private GameObject xSemiCosObs;
 	private GameObject ySemiCosObs;
-
+	private int lastBlock = 0;
 	private int blockCounter = -1;
+	private int lastlastBlock = 0;
 
     private int Score {
         get {
@@ -58,14 +58,22 @@ public class GameplayController : MonoBehaviour {
 
     public List<Vector3> GoToNextBlock() {
         currentBlock = nextBlock;
-		nextBlock = nextNextBlock;
-		nextNextBlock = GetNextBlock();
-		nextNextBlock.transform.position = nextNextBlock.GetComponent<TunnelBlock> ().track [0];
+		nextBlock = GetNextBlock();
+		nextBlock.transform.position = nextBlock.GetComponent<TunnelBlock> ().track [0];
         return currentBlock.GetComponent<TunnelBlock>().track;
     }
 
 	private GameObject GetNextBlock(){
-		blockCounter++;
+		if (blockCounter == -1) {
+			blockCounter = 0;
+		} else {
+			while (lastBlock == blockCounter || lastlastBlock == blockCounter) {
+				blockCounter = (int)(Random.value * 10);
+			}
+		}
+
+		lastlastBlock = lastBlock;
+		lastBlock = blockCounter;
 
 		if(blockCounter%10 == 0){
 			straight.GetComponent<TunnelBlock>().SetTrack(TrackFactory.GetStraight());
@@ -162,8 +170,6 @@ public class GameplayController : MonoBehaviour {
 		currentBlock = GetNextBlock();
 		nextBlock = GetNextBlock();
 		nextBlock.transform.position = nextBlock.GetComponent<TunnelBlock> ().track [0];
-		nextNextBlock = GetNextBlock();
-		nextNextBlock.transform.position = nextNextBlock.GetComponent<TunnelBlock> ().track [0];
 
         Application.targetFrameRate = 60;
         GlobalState.instance.gameController = this;
