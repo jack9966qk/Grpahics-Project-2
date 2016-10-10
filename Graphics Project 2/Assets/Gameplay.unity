@@ -1569,7 +1569,6 @@ MonoBehaviour:
   overlay: {fileID: 559605998}
   playerOriginController: {fileID: 378232826}
   playerObjectController: {fileID: 190419533}
-  playerWorldPosition: {fileID: 0}
   tunnelBlockPrefab: {fileID: 1000010918543800, guid: 6f39f4ce344b84e11b482cd514536329,
     type: 2}
 --- !u!4 &1964783676

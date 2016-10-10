@@ -10,7 +10,6 @@ public class GameplayController : MonoBehaviour {
 
     public PlayerOriginController playerOriginController;
     public PlayerObjectController playerObjectController;
-	public GameObject playerWorldPosition;
     public GameObject tunnelBlockPrefab;
 
     private GameObject currentBlock;
@@ -55,6 +54,11 @@ public class GameplayController : MonoBehaviour {
 		return newBlock;
 	}
 
+	GameObject GenerateTunnelBlockWithItem(List<Vector3> track) {
+		var newBlock = GameObject.Instantiate(tunnelBlockPrefab);
+		newBlock.GetComponent<TunnelBlock>().GenerateTunnelWithItems(track);
+		return newBlock;
+	}
 
     public List<Vector3> GoToNextBlock() {
         currentBlock = nextBlock;
@@ -142,7 +146,7 @@ public class GameplayController : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-		straight = GenerateTunnelBlock (TrackFactory.GetStraightOnce());
+		straight = GenerateTunnelBlockWithItem (TrackFactory.GetStraightOnce());
 		xCos = GenerateTunnelBlock (TrackFactory.GetFullCosOnce(0f));
 		yCos = GenerateTunnelBlock (TrackFactory.GetFullCosOnce(1f));
 		xSemiCos = GenerateTunnelBlock (TrackFactory.GetSemiCosOnce(0f));
