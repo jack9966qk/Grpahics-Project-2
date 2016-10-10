@@ -118,7 +118,7 @@ public class TunnelBlock : MonoBehaviour {
 					if (c%16 == 0 && obsDegree == degree) {
 						GameObject itm = Instantiate (item);
 						itm.transform.parent = this.gameObject.transform;
-						itm.GetComponent<ItemController> ().PutItem ((Vector3)last, point, degree, RADIUS);
+						itm.GetComponent<ItemBoxController> ().PutItem ((Vector3)last, point, degree, RADIUS);
 						obsDegree += 120;
 						if (obsDegree >= 360) {
 							obsDegree = 60;

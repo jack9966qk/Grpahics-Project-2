@@ -4,6 +4,7 @@ using System.Collections;
 public class ShaderScript : MonoBehaviour {
 
 	public Texture texture;
+	public Texture normal;
 
 	public Shader shader;
 
@@ -15,9 +16,9 @@ public class ShaderScript : MonoBehaviour {
 	public void initialise() {
 		MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
 
-		// Set blend uniform parameter in an oscillating fashion to demonstrate 
-		// blending shader (challenge question)
-		renderer.material.SetFloat("_BlendFct", (Mathf.Sin(Time.time) + 1.0f) / 4.0f);
+		renderer.material.shader = shader;
+		renderer.material.SetTexture ("_MainTex", texture);
+		renderer.material.SetTexture ("_NormalTex", normal);
 	}
 	
 	// Update is called once per frame

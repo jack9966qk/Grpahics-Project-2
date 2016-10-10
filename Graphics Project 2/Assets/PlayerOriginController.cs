@@ -45,6 +45,7 @@ public class PlayerOriginController : MonoBehaviour {
         moveForwardByDist((extraVelocity + velocity) * Time.fixedDeltaTime);
 
         handleInput();
+//		this.transform.rotation *= Quaternion.AngleAxis(-keyboardSpeed * Time.deltaTime, Vector3.forward);
     }
 
     void handleInput() {

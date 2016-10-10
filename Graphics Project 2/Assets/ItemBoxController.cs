@@ -1,25 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class CubeObstacleController : MonoBehaviour
-{
-	private NormalObstacle obstacleModel;
+public class ItemBoxController : MonoBehaviour {
 
-	void Start() {
-		obstacleModel.destroyActions.Add( delegate {
-			GameObject.Destroy(this.gameObject);
-		});
-	}
 
-	// Called each frame
-	void Update() {
-		
-	}
+	//private Item item;
 
-	public void PutCube(Vector3 origin, Vector3 back, float degree, float radius) {
 
-		obstacleModel = new NormalObstacle (10);
+	public void PutItem(Vector3 origin, Vector3 back, float degree, float radius) {
+
 
 		float radian = (degree+30) * Mathf.PI / 180;
 		this.transform.eulerAngles =  new Vector3(0,0,180-15-degree);
@@ -35,10 +24,9 @@ public class CubeObstacleController : MonoBehaviour
 		Debug.Log ("Collide");
 		var obj = other.gameObject;
 		if (obj.tag == "Player") {
-			obstacleModel.onCollisionWithPlayer (obj.GetComponent<PlayerObjectController> ().player);
+			obj.GetComponent<PlayerObjectController> ().addItemToPlayer(ItemPicker.PickOneRandom ());
 		}
 	}
-
 
 
 }
