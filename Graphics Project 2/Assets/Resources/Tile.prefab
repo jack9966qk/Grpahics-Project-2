@@ -52,10 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd49c6829b4d48929203b2124b27264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: a3dc4968f516e4f3babaf231863769ce, type: 3}
   shader: {fileID: 4800000, guid: b895d69f1a0924a96a13d6429772af0f, type: 3}
-  pointLights:
-  - {fileID: 0}
 --- !u!114 &114000012573510670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,4 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
+  normal: {fileID: 0}
+  shader: {fileID: 0}
   pointLights: []

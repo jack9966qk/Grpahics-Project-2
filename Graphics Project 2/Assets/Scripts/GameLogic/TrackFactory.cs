@@ -89,6 +89,7 @@ public static class TrackFactory {
 
 	public static List<Vector3> GetFullCosOnce(float XorY){
 		//return a linear track according to last point
+		last = Vector3.zero;
 		List<Vector3> points = GetFullCos(XorY);
 		last = Vector3.zero;
 		return points;
@@ -96,6 +97,7 @@ public static class TrackFactory {
 
 
 	public static List<Vector3> GetSemiCosOnce(float XorY){
+		last = Vector3.zero;
 		List<Vector3> points = GetSemiCos(XorY);
 		last = Vector3.zero;
 		return points;
@@ -104,6 +106,7 @@ public static class TrackFactory {
 
 	public static List<Vector3> GetStraightOnce(){
 		//return a linear track according to last point
+		last = Vector3.zero;
 		List<Vector3> points = GetStraight();
 		last = Vector3.zero;
 		return points;

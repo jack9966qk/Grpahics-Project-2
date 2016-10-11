@@ -8,7 +8,6 @@ public class ShaderScript : MonoBehaviour {
 
 	public Shader shader;
 
-	public PointLight[] pointLights;
 
 	// Use this for initialization
 
