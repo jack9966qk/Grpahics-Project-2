@@ -12,9 +12,8 @@ public class ShaderScript : MonoBehaviour {
 	// Use this for initialization
 
 
-	public void initialise() {
-		MeshRenderer renderer = this.gameObject.GetComponent<MeshRenderer>();
-
+	void Start() {
+		MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
 		renderer.material.shader = shader;
 		renderer.material.SetTexture ("_MainTex", texture);
 		renderer.material.SetTexture ("_NormalTex", normal);

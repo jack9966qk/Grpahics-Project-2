@@ -260,7 +260,6 @@ public class ItemBoxMeshGenerator : MonoBehaviour {
 	void Start () {
 		MeshFilter cubeMesh = this.gameObject.AddComponent<MeshFilter>();
 		cubeMesh.mesh = this.CreateCubeMesh();
-		this.gameObject.AddComponent<MeshRenderer> ();
 	}
 
 }

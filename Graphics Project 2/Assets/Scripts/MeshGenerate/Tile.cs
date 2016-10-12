@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
-	
-	public Shader shader;
 
+	
 	public void CreateTileMesh(Vector3 frontOrigin, Vector3 backOrigin,float degree,float radius,Color r){
 		
 		Mesh m = new Mesh();
@@ -34,6 +33,17 @@ public class Tile : MonoBehaviour {
 
 		m.SetVertices (vertices);
 		m.SetColors (colors);
+
+		// Define the UV coordinates
+		m.uv = new[] {
+			new Vector2 (0.0f, 0.0f), // Bottom
+			new Vector2 (0.0f, 1.0f),
+			new Vector2 (1.0f, 1.0f),
+			new Vector2 (0.0f, 0.0f),
+			new Vector2 (1.0f, 1.0f),
+			new Vector2 (1.0f, 0.0f)
+		};
+
 		//m.SetNormals(this.normals);
 		// Automatically define the triangles based on the number of vertices
 		int[] triangles = new int[m.vertices.Length];
@@ -43,13 +53,8 @@ public class Tile : MonoBehaviour {
 		m.triangles = triangles;
 
 
-
 		MeshFilter tileMesh = this.gameObject.AddComponent<MeshFilter>();
 		tileMesh.mesh = m;
 
-		// Add a MeshRenderer component. This component actually renders the mesh that
-		// is defined by the MeshFilter component.
-		MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
-		renderer.material.shader = shader;
 	}
 }

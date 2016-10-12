@@ -3,11 +3,17 @@ using System.Collections;
 
 public class CubeMeshGenerator : MonoBehaviour {
 
+	// Use this for initialization
+	void Start () {
+		MeshFilter cubeMesh = this.gameObject.AddComponent<MeshFilter>();
+		cubeMesh.mesh = this.CreateCubeMesh();
+	}
+
+
 	// Method to create a cube mesh with coloured vertices
 	private Mesh CreateCubeMesh() {
 		Mesh m = new Mesh ();
 		m.name = "Cube";
-
 		m.vertices = new[] {
 			new Vector3 (0.0f, 1.0f, 0.0f), // Top
 			new Vector3 (0.0f, 1.0f, 1.0f),
@@ -252,15 +258,8 @@ public class CubeMeshGenerator : MonoBehaviour {
 			triangles [i] = i;
 
 		m.triangles = triangles;
-
 		return m;
 	}
 
-	// Use this for initialization
-	void Start () {
-		MeshFilter cubeMesh = this.gameObject.AddComponent<MeshFilter>();
-		cubeMesh.mesh = this.CreateCubeMesh();
-		this.gameObject.AddComponent<MeshRenderer> ();
-	}
 
 }

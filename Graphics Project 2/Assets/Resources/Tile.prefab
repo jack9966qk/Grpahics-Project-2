@@ -23,7 +23,7 @@ GameObject:
   - 114: {fileID: 114000012573510670}
   m_Layer: 0
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd49c6829b4d48929203b2124b27264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: b895d69f1a0924a96a13d6429772af0f, type: 3}
 --- !u!114 &114000012573510670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,7 +63,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb6ff737d3241b1bf24f4d1409245c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 0}
+  texture: {fileID: 2800000, guid: 4990ace684fac40a28b37565d6fc669a, type: 3}
   normal: {fileID: 0}
-  shader: {fileID: 0}
-  pointLights: []
+  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}

@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000012422854710}
   - 54: {fileID: 54000014264968644}
   - 65: {fileID: 65000013275859348}
+  - 114: {fileID: 114000013724867942}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -92,3 +93,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e886fcb6bb0cc499e978b144c6a3b935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000013724867942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013880269454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97bb6ff737d3241b1bf24f4d1409245c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 2800000, guid: 1b1d85069fc724fb1a3d20aacf242567, type: 3}
+  normal: {fileID: 0}
+  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
