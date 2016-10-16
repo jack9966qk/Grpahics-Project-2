@@ -30,7 +30,7 @@ public class GameplayController : MonoBehaviour {
 	private int blockCounter = -1;
 	private int lastlastBlock = 0;
 
-    private int Score {
+	public int Score {
         get {
             return Mathf.RoundToInt(playerOriginController.dist);
         }

@@ -5,26 +5,24 @@ public class ShaderScript : MonoBehaviour {
 
 	public Texture texture;
 	public Texture normal;
-
-	public Shader shader;
-
-
 	// Use this for initialization
-
+	public Shader shader;
+	private Color fog;
+	private MeshRenderer rend;
 
 	void Start() {
-		MeshRenderer renderer = this.gameObject.AddComponent<MeshRenderer>();
-		renderer.material.shader = shader;
-		renderer.material.SetTexture ("_MainTex", texture);
-		renderer.material.SetTexture ("_NormalTex", normal);
+		fog = Camera.main.backgroundColor;
+		rend = this.gameObject.AddComponent<MeshRenderer>();
+		rend.material.shader = shader;
+		rend.material.SetTexture ("_MainTex", texture);
+		rend.material.SetTexture ("_NormalTex", normal);
+		rend.material.SetColor("_FogColor", fog);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
 
-	public void changeShader(string shadername){
 
 	}
+
 }

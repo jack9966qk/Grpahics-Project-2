@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013504921538}
   - 114: {fileID: 114000011524062264}
-  - 114: {fileID: 114000012573510670}
+  - 114: {fileID: 114000010920438362}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Tile
@@ -41,6 +41,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010920438362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013648615154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce19a5e07f0fb494bba941ca6f368d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textures:
+  - {fileID: 2800000, guid: 4990ace684fac40a28b37565d6fc669a, type: 3}
+  - {fileID: 2800000, guid: 17da6d53ec93a0444bd0f751b1d02477, type: 3}
+  - {fileID: 2800000, guid: 951aab9a19f551f4385d0ceafdaf19b4, type: 3}
+  normals:
+  - {fileID: 2800000, guid: c7e9ae087ac710a4980ed418c192e2fb, type: 3}
+  - {fileID: 2800000, guid: c7e9ae087ac710a4980ed418c192e2fb, type: 3}
+  - {fileID: 2800000, guid: c7e9ae087ac710a4980ed418c192e2fb, type: 3}
+  shaders:
+  - {fileID: 4800000, guid: eadb893a2c1614285aad303e0503812f, type: 3}
+  - {fileID: 4800000, guid: 50fbfb902658b3841a8e16a069538007, type: 3}
+  - {fileID: 4800000, guid: eadb893a2c1614285aad303e0503812f, type: 3}
 --- !u!114 &114000011524062264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,17 +75,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd49c6829b4d48929203b2124b27264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012573510670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013648615154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bb6ff737d3241b1bf24f4d1409245c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 1459471513, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
-  normal: {fileID: 1634281958, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
-  shader: {fileID: 4800000, guid: 50fbfb902658b3841a8e16a069538007, type: 3}

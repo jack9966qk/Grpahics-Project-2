@@ -19,6 +19,8 @@
 			uniform float _SpecularCoeff;
 			uniform float _SpecularPower;
 
+			uniform float4 _FogColor;
+
 			/*uniform int _NumPointLights;
 			uniform float3 _PointLightColors[MAX_LIGHTS];
 			uniform float3 _PointLightPositions[MAX_LIGHTS];*/
@@ -141,15 +143,11 @@
 				return returnColor;
 			}
 			
-			fixed4 applyFog(vertOut o) {
-				// sample the texture
-				fixed4 col = tex2D(_MainTex, o.uv);
-				// apply fog
+			fixed4 applyFog(fixed4 Cobject, float z) {
+				
+				float dist = abs(_WorldSpaceCameraPos.z - z);
+				fixed4 Cfog = _FogColor;
 
-				float dist = abs(_WorldSpaceCameraPos.z - o.worldVertex.z);
-				fixed4 Cfog = fixed4(0.0f, 0.0f, 0.0f, 1.0f);
-
-				fixed4 Cobject = col;
 				float f = -log2(dist / 10);
 
 				if (f >= 1) {
@@ -159,22 +157,26 @@
 					f = 0;
 				}
 
+
 				fixed4 Ceye = f * Cobject + (1 - f) * Cfog;
 				Ceye.a = 1-f;
 				return Ceye;
 			}
 
-			
-			fixed4 frag (vertOut o) : SV_Target
-			{
-				fixed4 color = applyFragPhongBumpTex(o);
-				//fixed4 fog = applyFog(o);
-				//color.rgb = (color.rgb * (1-fog.a)) + (fog.rgb * fog.a);
-				//color.rgb = _LightColor0.rgb;
-				return color;
+			fixed4 applySpecialEffect(){
+				return float4 (0.0f,0.0f,0.0f,0.0f);
 			}
 
 			
+			fixed4 frag (vertOut o) : SV_Target
+			{
+				fixed4 c = applyFragPhongBumpTex(o);
+				c = applyFog(c,o.worldVertex.z);
+				//color.rgb = (color.rgb * (1-fog.a)) + (fog.rgb * fog.a);
+				//color.rgb = _LightColor0.rgb;
+				return c;
+			}
+
 
 
 			ENDCG

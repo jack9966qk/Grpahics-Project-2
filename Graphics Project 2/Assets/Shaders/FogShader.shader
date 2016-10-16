@@ -19,6 +19,10 @@ Shader "Unlit/FogShader"
 
 			#include "UnityCG.cginc"
 
+
+			uniform float4 _FogColor;
+
+
 			struct appdata
 			{
 				float4 vertex : POSITION;
@@ -53,8 +57,14 @@ Shader "Unlit/FogShader"
 				fixed4 col = tex2D(_MainTex, i.uv);
 				// apply fog
 
+				if(col.r<=0.5){
+				    col = fixed4(0.0,0.0,0,1);
+				}else if(col.r > 0.5){
+					col = fixed4(0.2,0.2,1,1);
+				}
+
 				float dist = abs(_WorldSpaceCameraPos.z -  i.worldVertex.z);
-				fixed4 Cfog =  fixed4(0.0f, 0.0f, 0.0f, 1.0f);
+				fixed4 Cfog =  _FogColor;
 
 				fixed4 Cobject = col;
 				float f = -log2(dist/10);
