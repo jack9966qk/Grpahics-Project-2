@@ -12,6 +12,7 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#pragma enable_d3d11_debug_symbols 
 
 			uniform float _AmbientCoeff;
 			uniform float _DiffuseCoeff;
@@ -25,9 +26,10 @@
 			uniform sampler2D _MainTex;
 			uniform sampler2D _NormalMapTex;
 
+			uniform float4 _LightColor0;
 
 			#include "UnityCG.cginc"
-			//#include "Lighting.cgnic"
+			#include "UnityDeferredLibrary.cginc"
 
 			struct vertIn
 			{
@@ -82,8 +84,8 @@
 
 			fixed4 applyFragPhongBumpTex(vertOut v) {
 				// ===========MODIFIED HERE=========
-				_AmbientCoeff = 1;
-				_DiffuseCoeff = 1;
+				_AmbientCoeff = 5;
+				_DiffuseCoeff = 4;
 				_SpecularCoeff = 0.25;
 				_SpecularPower = 5;
 
@@ -106,8 +108,8 @@
 				float3 dif_and_spe_sum = float3(0.0, 0.0, 0.0);
 
 				//===================MODIFIED HERE==============
-				float3 pointLightPosition = _WorldSpaceLightPos0;
-				fixed4 pointLightColor = fixed4(1.0, 1.0, 1.0, 1.0);
+				float4 pointLightPosition = _WorldSpaceLightPos0;
+				fixed4 pointLightColor = _LightColor0;
 
 				/*for (int i = 0; i < _NumPointLights; i++)
 				{*/
@@ -115,8 +117,8 @@
 					// (when calculating the reflected ray in our specular component)
 					float fAtt = 1;
 					float Kd = _DiffuseCoeff;
-					//float3 L = normalize(pointLightPosition - v.worldVertex.xyz);
-					float3 L = normalize(_WorldSpaceLightPos0.xyz);
+					float3 L = normalize(_WorldSpaceLightPos0.xyz - v.worldVertex.xyz);
+					//float3 L = normalize(pointLightPosition.xyz);
 					float LdotN = dot(L, bumpNormal);
 					float3 dif = fAtt * pointLightColor.rgb * Kd * surfaceColor * saturate(LdotN);
 
@@ -166,8 +168,9 @@
 			fixed4 frag (vertOut o) : SV_Target
 			{
 				fixed4 color = applyFragPhongBumpTex(o);
-				fixed4 fog = applyFog(o);
-				color.rgb = (color.rgb * (1-fog.a)) + (fog.rgb * fog.a);
+				//fixed4 fog = applyFog(o);
+				//color.rgb = (color.rgb * (1-fog.a)) + (fog.rgb * fog.a);
+				//color.rgb = _LightColor0.rgb;
 				return color;
 			}
 
