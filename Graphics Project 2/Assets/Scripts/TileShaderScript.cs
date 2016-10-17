@@ -7,46 +7,46 @@ public class TileShaderScript : MonoBehaviour {
 	public Texture [] normals;
 	private MeshRenderer rend;
 	// Use this for initialization
-	public Shader [] shaders;
-	private Color fog;
+	public Shader shader;
+	public Color fog;
+	public int applyTransparent = 0;
 
-	private int curr;
+
+	private int curr=-1;
+
 	void Start() {
-
-		fog = Camera.main.backgroundColor;
-
 		rend = this.gameObject.AddComponent<MeshRenderer>();
-		rend.material.shader = shaders[0];
-		rend.material.SetTexture ("_MainTex", textures[0]);
-		rend.material.SetTexture ("_NormalTex", normals[0]);
+		rend.material.shader = shader;
 		rend.material.SetColor("_FogColor", fog);
+		changeTexture (0, 0);
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		int score = (int) transform.position.z;
-		score = score % 60;
+		int score = (int)transform.position.z;
 
-		if (score < 20) {
-			changeShader (0);
-		} else if (score < 40) {
-			changeShader (1);
-		} else if (score < 60) {
-			changeShader (2);
-		} 
+		score = score % 120;
+
+		if (score < 40) {
+			changeTexture (0,0);
+		} else if (score < 80) {
+			changeTexture (1,1);
+		} else {
+			changeTexture (2,0);
+		}
+
 
 	}
 
 
-	void changeShader(int i){
+	void changeTexture(int i,int trans){
 		if (curr == i) {
 			return;
 		}
-
-		rend.material.shader = shaders[i];
 		rend.material.SetTexture ("_MainTex", textures[i]);
 		rend.material.SetTexture ("_NormalTex", normals[i]);
+		rend.material.SetInt ("_applyTransparent", trans);
 		curr = i;
 
 	}
