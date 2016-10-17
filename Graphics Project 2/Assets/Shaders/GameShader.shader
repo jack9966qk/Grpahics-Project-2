@@ -129,7 +129,7 @@
 					float fAtt = 1;
 					float Kd = _DiffuseCoeff;
 //					float3 L = normalize(_WorldSpaceLightPos0.xyz - v.worldVertex.xyz);
-					float3 L = normalize(-pointLightPosition.xyz);
+					float3 L = normalize(-_WorldSpaceLightPos0.xyz);
 					float LdotN = dot(L, bumpNormal);
 					float3 dif = fAtt * pointLightColor.rgb * Kd * surfaceColor * saturate(LdotN);
 
