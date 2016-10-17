@@ -25,7 +25,7 @@
 			uniform float _SpecularCoeff;
 			uniform float _SpecularPower;
 
-			uniform int _applyTransparent;
+			uniform int _ApplyTransparent;
 			uniform float4 _FogColor;
 
 			uniform sampler2D _MainTex;
@@ -84,7 +84,7 @@
 				// Sample colour from texture (i.e. pixel colour before lighting applied)
 				fixed4 surfaceColor = tex2D(_MainTex, v.uv);
 
-				if (_applyTransparent == 1) {
+				if (_ApplyTransparent == 1) {
 					if (surfaceColor.r < 0.5){
 						surfaceColor.a = 0;
 					}else {
@@ -95,14 +95,28 @@
 				return surfaceColor;
 			}
 
+			float3 addDifAndSpeForOneLight(float3 before, fixed4 direction, fixed4 color, vertOut v, float3 surfaceColor, float3 bumpNormal) {
+				// Calculate diffuse RBG reflections, we save the results of L.N because we will use it again
+				// (when calculating the reflected ray in our specular component)
+				float fAtt = 1;
+				float Kd = _DiffuseCoeff;
+				//float3 L = normalize(_WorldSpaceLightPos0.xyz - v.worldVertex.xyz);
+				float3 L = normalize(direction.xyz);
+				float LdotN = dot(L, bumpNormal);
+				float3 dif = fAtt * color.rgb * Kd * surfaceColor * saturate(LdotN);
+
+				// Calculate specular reflections
+				float Ks = _SpecularCoeff;
+				float specN = _SpecularPower; // Values>>1 give tighter highlights
+				float3 V = normalize(_WorldSpaceCameraPos - v.worldVertex.xyz);
+				// Using Blinn-Phong approximation (note, this is a modification of normal Phong illumination):
+				float3 H = normalize(V + L);
+				float3 spe = fAtt * color.rgb * Ks * pow(saturate(dot(bumpNormal, H)), specN);
+
+				return before + dif + spe;
+			}
 
 			fixed4 applyFragPhongBumpTex(vertOut v, fixed4 surfaceColor) {
-				// ===========MODIFIED HERE=========
-				_AmbientCoeff = 1;
-				_DiffuseCoeff = 1;
-				_SpecularCoeff = 0.25;
-				_SpecularPower = 5;
-
 
 				// Modify normal based on normal map (and bring into range -1 to 1)
 				float3 bump = (tex2D(_NormalMapTex, v.uv) - float3(0.5, 0.5, 0.5)) * 2.0;
@@ -122,27 +136,13 @@
 				float4 pointLightPosition = _WorldSpaceLightPos0;
 				fixed4 pointLightColor = _LightColor0;
 
-				/*for (int i = 0; i < _NumPointLights; i++)
-				{*/
-					// Calculate diffuse RBG reflections, we save the results of L.N because we will use it again
-					// (when calculating the reflected ray in our specular component)
-					float fAtt = 1;
-					float Kd = _DiffuseCoeff;
-//					float3 L = normalize(_WorldSpaceLightPos0.xyz - v.worldVertex.xyz);
-					float3 L = normalize(-_WorldSpaceLightPos0.xyz);
-					float LdotN = dot(L, bumpNormal);
-					float3 dif = fAtt * pointLightColor.rgb * Kd * surfaceColor * saturate(LdotN);
-
-					// Calculate specular reflections
-					float Ks = _SpecularCoeff;
-					float specN = _SpecularPower; // Values>>1 give tighter highlights
-					float3 V = normalize(_WorldSpaceCameraPos - v.worldVertex.xyz);
-					// Using Blinn-Phong approximation (note, this is a modification of normal Phong illumination):
-					float3 H = normalize(V + L);
-					float3 spe = fAtt * pointLightColor.rgb * Ks * pow(saturate(dot(bumpNormal, H)), specN);
-
-					dif_and_spe_sum += dif + spe;
-				//}
+				//=============THIS WORKS FOR ONE LIGHT===========
+				dif_and_spe_sum = addDifAndSpeForOneLight(dif_and_spe_sum, -_WorldSpaceLightPos0, _LightColor0, v, surfaceColor, bumpNormal);
+				//=============THIS DOESNT WORK==========
+				/*for (int i = 0; i < 8; i++)
+				{
+					dif_and_spe_sum = addDifAndSpeForOneLight(dif_and_spe_sum, unity_LightPosition[i], unity_LightColor[0], v, surfaceColor, bumpNormal);
+				}*/
 
 				// Combine Phong illumination model components
 				float4 returnColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -156,7 +156,7 @@
 				float dist = abs(_WorldSpaceCameraPos.z - z);
 				fixed4 Cfog = _FogColor;
 
-				float f = -log2(dist / 15);
+				float f = -log2(dist / 20);
 
 				if (f >= 1) {
 					f = 1;

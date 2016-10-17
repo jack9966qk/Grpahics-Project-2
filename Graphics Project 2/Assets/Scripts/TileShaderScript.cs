@@ -3,7 +3,12 @@ using System.Collections;
 
 public class TileShaderScript : MonoBehaviour {
 
-	public Texture [] textures;
+    public float AmbientCoeff = 3f;
+    public float DiffuseCoeff = 1f;
+    public float SpecularCoeff = 0.25f;
+    public float SpecularPower = 5f;
+
+    public Texture [] textures;
 	public Texture [] normals;
 	private MeshRenderer rend;
 	// Use this for initialization
@@ -18,7 +23,11 @@ public class TileShaderScript : MonoBehaviour {
 		rend = this.gameObject.AddComponent<MeshRenderer>();
 		rend.material.shader = shader;
 		rend.material.SetColor("_FogColor", fog);
-		changeTexture (0, 0);
+        rend.material.SetFloat("_AmbientCoeff", AmbientCoeff);
+        rend.material.SetFloat("_DiffuseCoeff", DiffuseCoeff);
+        rend.material.SetFloat("_SpecularCoeff", SpecularCoeff);
+        rend.material.SetFloat("_SpecularPower", SpecularPower);
+        changeTexture (0, 0);
 	}
 
 	// Update is called once per frame
@@ -46,7 +55,7 @@ public class TileShaderScript : MonoBehaviour {
 		}
 		rend.material.SetTexture ("_MainTex", textures[i]);
 		rend.material.SetTexture ("_NormalTex", normals[i]);
-		rend.material.SetInt ("_applyTransparent", trans);
+		rend.material.SetInt ("_ApplyTransparent", trans);
 		curr = i;
 
 	}

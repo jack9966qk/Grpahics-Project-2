@@ -8,6 +8,7 @@ public class PlayerOriginController : MonoBehaviour {
     public GameplayController gameController;
     public GameObject playerObject;
     public PlayerObjectController playerObjectController;
+    public PlayerModelController playerModelController;
 	public float velocity = 2f;
 	public float maxVelocity = 5f;
     public float extraVelocity = 0f;
@@ -52,20 +53,24 @@ public class PlayerOriginController : MonoBehaviour {
 
         // keyboard control
         if (Input.GetKey(KeyCode.A)) {
-            this.transform.rotation *= Quaternion.AngleAxis(-keyboardSpeed * Time.deltaTime, Vector3.forward);
+            rotate(-keyboardSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D)) {
-            this.transform.rotation *= Quaternion.AngleAxis(keyboardSpeed * Time.deltaTime, Vector3.forward);
+            rotate(keyboardSpeed * Time.deltaTime);
         }
 
         // acclerometer control
         Vector3 acceleration = AdjustableAcclerometer.getAdjustedAccleration();
-        this.transform.rotation *= Quaternion.AngleAxis(
-            acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime,
-            Vector3.forward
-        );
+        rotate(acceleration.x * GlobalState.instance.settings.acclerometerSensitivity * Time.deltaTime);
 
+    }
+
+    void rotate(float amount) {
+        this.transform.rotation *= Quaternion.AngleAxis(amount, Vector3.forward);
+        if (playerModelController != null) {
+            playerModelController.Tilt(amount);
+        }
     }
 
     public void initialise(List<Vector3> firstTrack) {
