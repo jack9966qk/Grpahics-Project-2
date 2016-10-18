@@ -61,11 +61,19 @@ public class GameplayController : MonoBehaviour {
 	}
 
     public List<Vector3> GoToNextBlock() {
+		RegenerateObjects ();
         currentBlock = nextBlock;
 		nextBlock = GetNextBlock();
 		nextBlock.transform.position = nextBlock.GetComponent<TunnelBlock> ().track [0];
         return currentBlock.GetComponent<TunnelBlock>().track;
     }
+
+	void RegenerateObjects() {
+		foreach (var obj in GlobalState.instance.destroyedObjects) {
+			obj.SetActive (true);
+		}
+		GlobalState.instance.destroyedObjects.Clear ();
+	}
 
 	private GameObject GetNextBlock(){
 		if (blockCounter == -1) {

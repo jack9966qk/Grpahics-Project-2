@@ -7,9 +7,10 @@ public class CubeObstacleController : MonoBehaviour
 	private NormalObstacle obstacleModel;
 
 	void Start() {
-		obstacleModel = new NormalObstacle (10);
+		obstacleModel = new NormalObstacle (20);
 		obstacleModel.destroyActions.Add( delegate {
-			GameObject.Destroy(this.gameObject);
+			this.gameObject.SetActive(false);
+			GlobalState.instance.destroyedObjects.Enqueue(this.gameObject);
 		});
 	}
 

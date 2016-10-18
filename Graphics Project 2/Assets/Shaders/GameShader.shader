@@ -79,19 +79,28 @@
 				return o;
 			}
 
+			fixed4 applyTransparentEffectOnTexture(fixed4 col,vertOut v){
+					if (col.r < 0.5 || col.b < 0.5){
+						col.a = 0;
+					}else {
+						int z = (int) v.worldVertex.z;
+						float c = z % 300;
+						float r = (c-50)/100;
+						float g = c/200;
+						float b = c/100;
+						col = fixed4(r,g,b,1);
+					}
+					return col;
+			}
+
 			fixed4 sampleTexture(vertOut v){
 
 				// Sample colour from texture (i.e. pixel colour before lighting applied)
 				fixed4 surfaceColor = tex2D(_MainTex, v.uv);
 
 				if (_ApplyTransparent == 1) {
-					if (surfaceColor.r < 0.5){
-						surfaceColor.a = 0;
-					}else {
-						surfaceColor.b = 1;
-					}
+					surfaceColor = applyTransparentEffectOnTexture(surfaceColor,v);
 				}
-
 				return surfaceColor;
 			}
 

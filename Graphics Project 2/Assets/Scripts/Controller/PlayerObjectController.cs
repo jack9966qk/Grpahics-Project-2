@@ -5,6 +5,7 @@ using System;
 public class PlayerObjectController : DestroyableController {
     public Player player { get; private set; }
     public PlayerOriginController playerOriginController;
+	public GameObject[] cameras;
 
     public void addItemToPlayer(Item item) {
         player.item = item;
@@ -13,7 +14,13 @@ public class PlayerObjectController : DestroyableController {
 
     void Start() {
         player = new Player(100);
-        setSelfToBeDestroyedWith(player);
+		player.destroyActions.Add (delegate {
+			foreach(var camera in cameras) {
+				camera.transform.SetParent(playerOriginController.transform);
+			}
+			this.gameObject.SetActive(false);
+			playerOriginController.accleration = -0.1f;
+		});
     }
 
     void handleTouch() {

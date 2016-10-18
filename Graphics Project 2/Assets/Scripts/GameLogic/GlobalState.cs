@@ -24,4 +24,7 @@ public class GlobalState {
         settings = new GameSettings();
     }
 
+	public Queue<GameObject> destroyedObjects = new Queue<GameObject>();
+
+
 }

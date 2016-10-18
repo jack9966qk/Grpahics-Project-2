@@ -35,14 +35,16 @@ public class TileShaderScript : MonoBehaviour {
 
 		int score = (int)transform.position.z;
 
-		score = score % 120;
+		score = score % 160;
 
 		if (score < 40) {
-			changeTexture (0,0);
+			changeTexture (0, 0);
 		} else if (score < 80) {
-			changeTexture (1,1);
-		} else {
-			changeTexture (2,0);
+			changeTexture (1, 1);
+		} else if (score < 120) {
+			changeTexture (2, 0);
+		} else if (score < 160) {
+			changeTexture (3, 1);
 		}
 
 

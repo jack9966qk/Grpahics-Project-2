@@ -26,6 +26,9 @@ public class ItemBoxController : MonoBehaviour {
 		if (obj.tag == "Player") {
 			obj.GetComponent<PlayerObjectController> ().addItemToPlayer(ItemPicker.PickOneRandom ());
 		}
+			
+		this.gameObject.SetActive (false);
+		GlobalState.instance.destroyedObjects.Enqueue (this.gameObject);
 	}
 
 

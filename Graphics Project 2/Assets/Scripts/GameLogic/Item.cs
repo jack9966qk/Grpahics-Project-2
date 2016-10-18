@@ -39,7 +39,7 @@ public abstract class Item {
         }
     }
 
-    protected void onEffectComplete() {
+    protected virtual void onEffectComplete() {
         player.item = null;
     }
 

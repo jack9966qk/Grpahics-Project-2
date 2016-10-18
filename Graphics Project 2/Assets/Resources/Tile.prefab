@@ -52,14 +52,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce19a5e07f0fb494bba941ca6f368d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AmbientCoeff: 3
+  DiffuseCoeff: 1
+  SpecularCoeff: 0.25
+  SpecularPower: 5
   textures:
   - {fileID: 1459471513, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
   - {fileID: 2800000, guid: 4990ace684fac40a28b37565d6fc669a, type: 3}
   - {fileID: 1459471513, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
+  - {fileID: 2800000, guid: 49b611e658efbf443b686a4036f74fe3, type: 3}
   normals:
   - {fileID: 1790498457, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
   - {fileID: 0}
   - {fileID: 1790498457, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
+  - {fileID: 0}
   shader: {fileID: 4800000, guid: 50fbfb902658b3841a8e16a069538007, type: 3}
   fog: {r: 0, g: 0, b: 0, a: 0}
   applyTransparent: 1
