@@ -153,6 +153,8 @@ public class GameplayController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+		GlobalState.instance.destroyedObjects.Clear ();
+
 
 		straight = GenerateTunnelBlockWithItem (TrackFactory.GetStraightOnce());
 		xCos = GenerateTunnelBlock (TrackFactory.GetFullCosOnce(0f));
