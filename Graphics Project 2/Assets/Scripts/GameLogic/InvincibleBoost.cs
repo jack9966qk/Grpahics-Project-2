@@ -48,6 +48,10 @@ public class InvincibleBoost : Item {
 //			col.color.gradient.SetKeys( new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.red, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) } );
 
 		}
+
+        foreach (var obj in GameObject.FindGameObjectsWithTag("Protection")) {
+            obj.GetComponent<ParticleSystem>().Play();
+        }
     }
 
 	protected override void onEffectComplete() {
@@ -57,7 +61,11 @@ public class InvincibleBoost : Item {
 			ps.startSize = 0.06f;
 			ps.startSpeed = 0.8f;
 		}
-	}
+
+        foreach (var obj in GameObject.FindGameObjectsWithTag("Protection")) {
+            obj.GetComponent<ParticleSystem>().Stop();
+        }
+    }
 
     public override string getDescription() {
         return "An item that makes the player temporarily invinvible, and gives temporary speed-up";

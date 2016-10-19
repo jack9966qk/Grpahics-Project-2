@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Afterburner
   - Item
+  - Protection
   layers:
   - Default
   - TransparentFX

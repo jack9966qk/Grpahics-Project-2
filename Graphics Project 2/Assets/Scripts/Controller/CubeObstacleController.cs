@@ -5,12 +5,18 @@ using System.Collections.Generic;
 public class CubeObstacleController : MonoBehaviour
 {
 	private NormalObstacle obstacleModel;
+    public GameObject Explosion;
 
 	void Start() {
 		obstacleModel = new NormalObstacle (20);
 		obstacleModel.destroyActions.Add( delegate {
 			this.gameObject.SetActive(false);
 			GlobalState.instance.destroyedObjects.Enqueue(this.gameObject);
+
+            if (Explosion != null) {
+                var exp = GameObject.Instantiate(Explosion);
+                exp.transform.position = this.transform.position;
+            }
 		});
 	}
 

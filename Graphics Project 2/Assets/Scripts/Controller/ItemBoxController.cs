@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ItemBoxController : MonoBehaviour {
 
+    public GameObject Explosion;
 
 	//private Item item;
 
@@ -28,6 +29,8 @@ public class ItemBoxController : MonoBehaviour {
 		}
 			
 		this.gameObject.SetActive (false);
+        var exp = GameObject.Instantiate(Explosion);
+        exp.transform.position = this.transform.position;
 		GlobalState.instance.destroyedObjects.Enqueue (this.gameObject);
 	}
 
