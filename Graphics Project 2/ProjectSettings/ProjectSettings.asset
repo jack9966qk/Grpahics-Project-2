@@ -364,8 +364,7 @@ PlayerSettings:
     16: CROSS_PLATFORM_INPUT;MOBILE_INPUT
   metroPackageName: 2013_10 - Sample Assets
   metroPackageVersion: 
-  metroCertificatePath: C:\Users\Dummy\Documents\Grpahics-Project-2\Graphics Project
-    2\Assets\WSATestCertificate.pfx
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany

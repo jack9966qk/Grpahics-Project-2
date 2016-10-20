@@ -638,6 +638,11 @@ Prefab:
       propertyPath: playerOriginController
       value: 
       objectReference: {fileID: 378232826}
+    - target: {fileID: 114000011387668964, guid: 4842602eee3e6e247841ddd8fc7fd886,
+        type: 2}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 100000, guid: e6ab56e4714ff4154ac034cf28db78b2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4842602eee3e6e247841ddd8fc7fd886, type: 2}
   m_IsPrefabParent: 0
