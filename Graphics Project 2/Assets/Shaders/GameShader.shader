@@ -7,10 +7,12 @@
 	SubShader
 	{
 
-	    Tags { "Queue" = "Transparent" } 
 
 		Pass
 		{
+		    Tags { "LightMode" = "ForwardBase" 
+		    	   "Queue" = "Transparent"  } 
+
 
 			ZWrite Off
 		    Blend SrcAlpha OneMinusSrcAlpha // use alpha blending
@@ -19,6 +21,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma enable_d3d11_debug_symbols 
+			#pragma multi_compile_fwdbase
 
 			uniform float _AmbientCoeff;
 			uniform float _DiffuseCoeff;
@@ -30,11 +33,15 @@
 
 			uniform sampler2D _MainTex;
 			uniform sampler2D _NormalMapTex;
+			uniform sampler2D _TransparencyTex;
+			uniform sampler2D _EmissiveTex;
 
-			uniform float4 _LightColor0;
+//			uniform float4 _LightColor0;
 
 			#include "UnityCG.cginc"
-			#include "UnityDeferredLibrary.cginc"
+//			#include "UnityDeferredLibrary.cginc"
+			#include "AutoLight.cginc"
+     		#include "Lighting.cginc"
 
 			struct vertIn
 			{
@@ -52,6 +59,7 @@
 				float3 worldNormal : TEXCOORD2;
 				float3 worldTangent : TEXCOORD3;
 				float3 worldBinormal : TEXCOORD4;
+				LIGHTING_COORDS(5,6)
 			};
 
 			float4 _MainTex_ST;
@@ -93,13 +101,19 @@
 					return col;
 			}
 
+			fixed4 applyTransparency(fixed4 col, vertOut v) {
+				fixed4 c = tex2D(_TransparencyTex, v.uv);
+				col.a = c.r;
+				return col;
+			}
+
 			fixed4 sampleTexture(vertOut v){
 
 				// Sample colour from texture (i.e. pixel colour before lighting applied)
 				fixed4 surfaceColor = tex2D(_MainTex, v.uv);
 
 				if (_ApplyTransparent == 1) {
-					surfaceColor = applyTransparentEffectOnTexture(surfaceColor,v);
+					surfaceColor = applyTransparency(surfaceColor,v);
 				}
 				return surfaceColor;
 			}
@@ -157,6 +171,7 @@
 				float4 returnColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 				returnColor.rgb = amb.rgb + dif_and_spe_sum.rgb;
 				returnColor.a = surfaceColor.a;
+
 				return returnColor;
 			}
 			
@@ -183,18 +198,30 @@
 			{
 				vertOut o;
 				o = applyVertPhongBumpTex(v, o);
+				TRANSFER_VERTEX_TO_FRAGMENT(o);
 				return o;
 			}
 
 
 			fixed4 frag (vertOut v) : SV_Target
 			{
-				fixed4 o = sampleTexture(v);
-				o = applyFragPhongBumpTex(v,o);
-				o = applyFog(o,v.worldVertex.z);
+//				fixed4 o = sampleTexture(v);
+//				o = applyFragPhongBumpTex(v,o);
+//				o = applyFog(o,v.worldVertex.z);
+				fixed4 o = fixed4(1,0,0,1);
+
+                float attenuation = LIGHT_ATTENUATION(v);
+				o.rgb = o.rgb * attenuation;
 				return o;
 			}
 			ENDCG
 		}
+
+
+
+
+
 	}
+	Fallback "VertexLit"
+
 }

@@ -10,6 +10,7 @@ public class TileShaderScript : MonoBehaviour {
 
     public Texture [] textures;
 	public Texture [] normals;
+	public Texture[] transparencies;
 	private MeshRenderer rend;
 	// Use this for initialization
 	public Shader shader;
@@ -57,6 +58,7 @@ public class TileShaderScript : MonoBehaviour {
 		}
 		rend.material.SetTexture ("_MainTex", textures[i]);
 		rend.material.SetTexture ("_NormalTex", normals[i]);
+		rend.material.SetTexture ("_TransparencyTex", transparencies [i]);
 		rend.material.SetInt ("_ApplyTransparent", trans);
 		curr = i;
 

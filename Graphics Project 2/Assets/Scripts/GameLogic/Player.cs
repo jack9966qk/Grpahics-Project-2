@@ -18,7 +18,7 @@ public class Player : Destroyable {
     public bool isInvincible = false;
 
     public void triggerItem() {
-        if (item != null) {
+		if (item != null && item.InEffect == false) {
             item.applyEffect();
         }
     }

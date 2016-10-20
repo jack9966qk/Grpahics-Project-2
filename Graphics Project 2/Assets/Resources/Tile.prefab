@@ -66,6 +66,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1790498457, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
   - {fileID: 0}
+  transparencies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shader: {fileID: 4800000, guid: 50fbfb902658b3841a8e16a069538007, type: 3}
   fog: {r: 0, g: 0, b: 0, a: 0}
   applyTransparent: 1
