@@ -58,9 +58,9 @@ MonoBehaviour:
   SpecularPower: 5
   textures:
   - {fileID: 1459471513, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
-  - {fileID: 2800000, guid: 4990ace684fac40a28b37565d6fc669a, type: 3}
+  - {fileID: 2800000, guid: d6648d3d3ef484c76ae9093c5900bc11, type: 3}
   - {fileID: 1459471513, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
-  - {fileID: 2800000, guid: 49b611e658efbf443b686a4036f74fe3, type: 3}
+  - {fileID: 2800000, guid: d6648d3d3ef484c76ae9093c5900bc11, type: 3}
   normals:
   - {fileID: 1790498457, guid: 1335d7be75a32a8449a1f4bf6b5686ae, type: 3}
   - {fileID: 0}

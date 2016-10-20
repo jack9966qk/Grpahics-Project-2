@@ -6,11 +6,9 @@
 	}
 	SubShader
 	{
-		Tags{ "LightMode" = "ForwardBase"
-		"Queue" = "Transparent" }
-
+		Tags{ "Queue" = "Transparent" }
 		Pass
-		{
+		{	
 			ZWrite Off
 		    Blend SrcAlpha OneMinusSrcAlpha // use alpha blending
 
@@ -33,11 +31,8 @@
 			uniform sampler2D _TransparencyTex;
 			uniform sampler2D _EmissiveTex;
 
-//			uniform float4 _LightColor0;
-
 			#include "UnityCG.cginc"
-//			#include "UnityDeferredLibrary.cginc"
-			#include "AutoLight.cginc"
+			#include "UnityDeferredLibrary.cginc"
      		#include "Lighting.cginc"
 
 			struct vertIn
@@ -56,7 +51,6 @@
 				float3 worldNormal : TEXCOORD2;
 				float3 worldTangent : TEXCOORD3;
 				float3 worldBinormal : TEXCOORD4;
-				LIGHTING_COORDS(5,6)
 			};
 
 			float4 _MainTex_ST;
@@ -115,6 +109,8 @@
 				return surfaceColor;
 			}
 
+			
+
 			float3 addDifAndSpeForOneLight(float3 before, fixed4 direction, fixed4 color, vertOut v, float3 surfaceColor, float3 bumpNormal) {
 				// Calculate diffuse RBG reflections, we save the results of L.N because we will use it again
 				// (when calculating the reflected ray in our specular component)
@@ -163,29 +159,26 @@
 				{
 					dif_and_spe_sum = addDifAndSpeForOneLight(dif_and_spe_sum, unity_LightPosition[i], unity_LightColor[0], v, surfaceColor, bumpNormal);
 				}*/
-
 				// Combine Phong illumination model components
 				float4 returnColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 				returnColor.rgb = amb.rgb + dif_and_spe_sum.rgb;
 				returnColor.a = surfaceColor.a;
-
 				return returnColor;
 			}
+
 			
 			fixed4 applyFog(fixed4 Cobject, float z) {
-				
 				float dist = abs(_WorldSpaceCameraPos.z - z);
 				fixed4 Cfog = _FogColor;
-
+				//calculate fog factor
 				float f = -log2(dist / 20);
-
 				if (f >= 1) {
 					f = 1;
 				}
 				else if (f <= 0) {
 					f = 0;
 				}
-
+				//calculate color after the effect
 				fixed4 Ceye = f * Cobject + (1 - f) * Cfog;
 				return Ceye;
 			}
@@ -195,7 +188,6 @@
 			{
 				vertOut o;
 				o = applyVertPhongBumpTex(v, o);
-				//TRANSFER_VERTEX_TO_FRAGMENT(o);
 				return o;
 			}
 
@@ -205,20 +197,11 @@
 				fixed4 o = sampleTexture(v);
 				o = applyFragPhongBumpTex(v,o);
 				o = applyFog(o,v.worldVertex.z);
-				//fixed4 o = fixed4(1,0,0,1);
-
-    //            float attenuation = LIGHT_ATTENUATION(v);
-				//o.rgb = o.rgb * attenuation;
 				return o;
 			}
 			ENDCG
 		}
 
-
-
-
-
 	}
-	Fallback "VertexLit"
 
 }
