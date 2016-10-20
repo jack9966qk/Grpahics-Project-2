@@ -20,11 +20,6 @@ public class CubeObstacleController : MonoBehaviour
 		});
 	}
 
-	// Called each frame
-	void Update() {
-		
-	}
-
 	public void PutCube(Vector3 origin, Vector3 back, float degree, float radius) {
 
 		float radian = (degree+30) * Mathf.PI / 180;

@@ -6,14 +6,11 @@
 	}
 	SubShader
 	{
-
+		Tags{ "LightMode" = "ForwardBase"
+		"Queue" = "Transparent" }
 
 		Pass
 		{
-		    Tags { "LightMode" = "ForwardBase" 
-		    	   "Queue" = "Transparent"  } 
-
-
 			ZWrite Off
 		    Blend SrcAlpha OneMinusSrcAlpha // use alpha blending
 
@@ -198,20 +195,20 @@
 			{
 				vertOut o;
 				o = applyVertPhongBumpTex(v, o);
-				TRANSFER_VERTEX_TO_FRAGMENT(o);
+				//TRANSFER_VERTEX_TO_FRAGMENT(o);
 				return o;
 			}
 
 
 			fixed4 frag (vertOut v) : SV_Target
 			{
-//				fixed4 o = sampleTexture(v);
-//				o = applyFragPhongBumpTex(v,o);
-//				o = applyFog(o,v.worldVertex.z);
-				fixed4 o = fixed4(1,0,0,1);
+				fixed4 o = sampleTexture(v);
+				o = applyFragPhongBumpTex(v,o);
+				o = applyFog(o,v.worldVertex.z);
+				//fixed4 o = fixed4(1,0,0,1);
 
-                float attenuation = LIGHT_ATTENUATION(v);
-				o.rgb = o.rgb * attenuation;
+    //            float attenuation = LIGHT_ATTENUATION(v);
+				//o.rgb = o.rgb * attenuation;
 				return o;
 			}
 			ENDCG

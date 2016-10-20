@@ -6,10 +6,13 @@ public class PlayerObjectController : DestroyableController {
     public Player player { get; private set; }
     public PlayerOriginController playerOriginController;
 	public GameObject[] cameras;
+    public GameObject Explosion;
 
     public void addItemToPlayer(Item item) {
         player.item = item;
         item.controller = playerOriginController;
+
+        
     }
 
     void Start() {
@@ -20,7 +23,12 @@ public class PlayerObjectController : DestroyableController {
 			}
 			this.gameObject.SetActive(false);
 			playerOriginController.accleration = -0.1f;
-		});
+
+            if (Explosion != null) {
+                var exp = GameObject.Instantiate(Explosion);
+                exp.transform.position = this.playerOriginController.playerModelController.transform.position;
+            }
+        });
     }
 
     void handleTouch() {

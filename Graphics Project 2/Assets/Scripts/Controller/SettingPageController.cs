@@ -42,7 +42,9 @@ public class SettingPageController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+	    foreach (var pl in GameObject.FindGameObjectsWithTag("Player")) {
+            pl.GetComponent<PlayerObjectController>().player.isInvincible = true;
+        }
 	}
 	
 	// Update is called once per frame

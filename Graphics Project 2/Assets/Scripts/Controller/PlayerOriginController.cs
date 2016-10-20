@@ -68,7 +68,7 @@ public class PlayerOriginController : MonoBehaviour {
 
     void rotate(float amount) {
         this.transform.rotation *= Quaternion.AngleAxis(amount, Vector3.forward);
-        if (playerModelController != null) {
+        if (playerModelController != null && amount != 0f) {
             playerModelController.Tilt(amount);
         }
     }
