@@ -14,5 +14,10 @@ public class MainMenuController : MonoBehaviour {
     public void goToSettings() {
         StateController.goToSettings();
     }
-    
+
+    public void goToInstructions()
+    {
+        StateController.goToInstructions();
+    }
+
 }
