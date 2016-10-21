@@ -2,6 +2,9 @@
 
 This is the second project for the subject COMP30019 (Graphics and Interaction), in the University of Melbourne. Completed by Jack QIAN and Kevin CHEN, the project is a infinite-runner-like game in a procedurally generated, tubular stage and space themed environment. Various visual effects has been applied to the project, and interaction can be done in multiple ways.
 
+The project is built and tested in Unity 5.4.1f1.
+
+Here's a link to the [video for demonstration](https://youtu.be/vSwWNqF98To).
 
 ## Gameplay
 
@@ -46,7 +49,7 @@ When an item box is collected, and player or cube obstacle gets destroyed, relat
 To prevent the player noticing the procedural generation of tunnels, and to make the game more challenging, fog effect has been implemented as a part of the custom shader. The shader creates the fog by calculating the distance of the object, and blend the specified fog color with the original color respectively.
 
 ### Shadow
-Shadow is not in the main gameplay, but it is implemented and applied on instruction scene. It uses the custom shader called ShadowShader.cg.
+Shadow is not in the main gameplay, but it is implemented and applied on instruction scene. It uses the custom shader `ShadowShader.cg`.
 
 ### Input/Interaction
 
