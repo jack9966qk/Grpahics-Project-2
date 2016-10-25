@@ -10,6 +10,7 @@ TagManager:
   - Afterburner
   - Item
   - Protection
+  - MainMenuMusic
   layers:
   - Default
   - TransparentFX
